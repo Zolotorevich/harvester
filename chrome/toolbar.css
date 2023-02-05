@@ -1,0 +1,296 @@
+/* Overrride all styles */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+:root {
+	--white: #f6f6f6;
+	--black: #181818;
+	--grey:#9d9d9d;
+	--light-grey: #d9d9d9;
+	--blue: #4995f4;
+	--red:#cd2424;
+	--green:#10b11b;
+	--display-grey:#7d7d7d;
+	--display-white: #ebebeb;
+	--indicator-grey:#c5c5c5;
+}
+
+.hound_greenText {
+	color: var(--green);
+}
+
+.hound_redText {
+	color: var(--red);
+}
+
+.hound_yellowText {
+	color: #e4b400;
+}
+
+#hound_toolbarContainer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 110px;
+	background-color: var(--white);
+	z-index: 1000000000;
+	-webkit-box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.38); 
+	-moz-box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.38); 
+	box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.38);
+	font-family: "TT Norms Pro Regular", "TTNormsPro-Regular", "TT Norms Pro";
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.hound_flexBreak {
+	flex-basis: 100%;
+	height: 1px;
+}
+
+/* DISPLAY */
+
+#hound_toolbarDisplay {
+	width: 275px;
+	height: 64px;
+	margin:10px 0 0 20px;
+	background-color: #000;
+	border-radius: 8px;
+	flex-shrink: 0;
+	padding: 8px 0 0 15px;
+	box-sizing: content-box;
+}
+
+#hound_toolbarDisplay div {
+	line-height: normal;
+}
+
+#hound_displayTitle {
+	color: #fff;
+	font-family: "TT Norms Pro Bold", "TTNormsPro-Bold", "TT Norms Pro";
+	text-transform: uppercase;
+	font-size: 16px;
+}
+
+#hound_displayGroupType {
+	display: flex;
+}
+
+#hound_displayGroupType div {
+	color: var(--display-grey);
+	text-transform: uppercase;
+	font-size: 14px;
+	font-family: "TT Norms Pro Medium", "TTNormsPro-Medium", "TT Norms Pro";
+	margin: 0 5px 0 0;
+}
+
+#hound_displayGroupType div:hover {
+	cursor:pointer;
+	color:#fff;
+}
+
+.hound_displayGroupSelected {
+	color:var(--blue) !important;
+	font-family: "TT Norms Pro Bold", "TTNormsPro-Bold", "TT Norms Pro" !important;
+}
+
+#hound_displayStatusMessage {
+	font-family: "TT Norms Pro Bold", "TTNormsPro-Bold", "TT Norms Pro";
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+.hound_messageNormal {
+	color: #252525;
+}
+
+.hound_messageCaution {
+	color: #f2af1e;
+}
+
+.hound_messageWarning {
+	color: var(--red);
+}
+
+.hound_messageSuccess {
+	color: var(--green);
+}
+
+#hound_issueSelector {
+	width: 275px;
+	padding: 0 0 0 35px;
+	flex-shrink: 0;
+	display: flex;
+	box-sizing: content-box;
+	line-height: normal;
+}
+
+#hound_issueSelector div {
+	margin: 4px 5px 0 0;
+	cursor:pointer;
+	flex-shrink: 0;
+	box-sizing:border-box;
+	line-height: normal;
+	width:18px;
+	height:4px;
+	padding: 0 !important;
+	position:relative;
+	border-radius: 2px;
+}
+
+.hound_selectorOff {
+	border:1px solid #b5b5b5;
+}
+
+.hound_selectorOn {
+	background-color: var(--blue);
+}
+
+
+/* TEXT AND CONTROLS */
+
+#hound_toolbarTextarea {
+	font-family: "TT Norms Pro Regular", "TTNormsPro-Regular", "TT Norms Pro";
+	-webkit-font-smoothing: subpixel-antialiased;
+	font-size: 16px !important;
+	line-height: 20px !important;
+	font-weight: normal;
+	resize: none;
+	outline: none !important;
+	border:0 !important;
+	background-color: var(--white);
+	padding: 19px 25% 0 20px;
+	flex-grow: 1;
+	box-sizing: content-box;
+	height: 60px !important;
+	box-shadow: none !important;
+}
+
+#hound_saveButton {
+	padding: 0 0 0 20px;
+}
+
+#hound_sendSeparator {
+	display:none;
+}
+
+#hound_glueButton {
+	display:none;
+}
+
+#hound_saveButton:hover, #hound_glueButton:hover {
+	color: var(--blue);
+}
+
+#houndSendButtons {
+	display: flex;
+	box-sizing: content-box;
+	line-height: normal;
+	margin:0 5px 0 0;
+}
+
+#houndSendButtons div, .houndSendButtonsDisabled div {
+	font-family: "TT Norms Pro Bold", "TTNormsPro-Bold", "TT Norms Pro";
+	font-size: 16px;
+	cursor: pointer;
+	margin: 0 5px 0 0;
+}
+
+.houndSendButtonsDisabled div {
+	opacity: .2;
+	cursor: default !important;
+}
+
+.houndSendButtonsDisabled div:hover {
+	color: var(--black) !important;
+}
+
+#hound_Time, #hound_Date {
+	outline:none;
+	box-shadow: none !important;
+}
+
+#hound_Time:hover, #hound_Date:hover, #hound_Time:focus, #hound_Date:focus {
+	color: var(--black);
+}
+
+#hound_Time, #hound_Date, #hound_Count {
+	padding: 0 5px 0 0;
+	color: var(--display-grey);
+	font-size: 16px;
+	-webkit-font-smoothing: subpixel-antialiased;
+	box-sizing: content-box;
+	line-height: normal;
+}
+
+#hound_Count {
+	margin: 0 0 0 5px;
+}
+
+#hound_DateLabel {
+	padding: 0 0 0 5px;
+	color: var(--display-grey);
+	font-size: 16px;
+	-webkit-font-smoothing: subpixel-antialiased;
+	box-sizing: content-box;
+	line-height: normal;
+}
+
+#hound_Count:hover {
+	color: var(--black);
+	cursor: pointer;
+}
+
+.hound_Count_off {
+	opacity: .3;
+}
+
+/* CHROME MENU */
+#hound_chromeMenu {
+	font-family: "TT Norms Pro Bold", "TTNormsPro-Bold", "TT Norms Pro";
+	font-size: 16px;
+	cursor: pointer;
+	text-transform: uppercase;
+	width: 200px;
+}

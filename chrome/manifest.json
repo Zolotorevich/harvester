@@ -1,0 +1,32 @@
+{
+  "name": "Harvester",
+  "description": "Leditor II companion",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/harvester_16.png",
+      "32": "/images/harvester_32.png",
+      "48": "/images/harvester_48.png",
+      "128": "/images/harvester_128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/harvester_16.png",
+    "32": "/images/harvester_32.png",
+    "48": "/images/harvester_48.png",
+    "128": "/images/harvester_128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": [
+        "jquery-3.6.3.min.js",
+        "init.js"
+      ],
+      "css": ["toolbar.css"]
+    }
+  ]
+}
