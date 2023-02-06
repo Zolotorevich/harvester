@@ -3,7 +3,10 @@
   "description": "Leditor II companion",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["activeTab"],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -26,9 +29,8 @@
         "jquery-3.6.3.min.js",
         "init.js",
         "crawlers/interfax.js",
-        "crawlers/tassEconomika.js",
         "crawlers/aljazeera.js",
-        "crawlers/reuters.js"
+        "crawlers/nytimes.js"
       ]
     }
   ]

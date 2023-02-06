@@ -18,6 +18,7 @@ $decoded = json_decode($content, true);
 //update crawler name
 if (str_contains($decoded[0]["link"], 'www.aljazeera.com')) { $crawlerName = 'aljazeera'; }
 else if(str_contains($decoded[0]["link"], 'interfax.ru')) { $crawlerName = 'interfax'; }
+else if(str_contains($decoded[0]["link"], 'www.nytimes.com')) { $crawlerName = 'nytimes'; }
 
 //check if crawler has name
 if ($crawlerName == '') {
@@ -32,7 +33,7 @@ foreach ($decoded as $key => $value) {
 	$newsTitle = mysqli_real_escape_string($connection, $value["title"]);
 	$newsLink = mysqli_real_escape_string($connection, $value["link"]);
 
-	$sql .= "INSERT INTO ".$crawlerName." (date, title, link) VALUES ('$newsDate', '$newsTitle', '$newsLink');";
+	$sql .= "INSERT INTO ".$crawlerName." (date, title, link) VALUES ('$newsDate', '$newsTitle', '$newsLink') ON DUPLICATE KEY UPDATE id=id;";
 
 }
 

@@ -1,9 +1,14 @@
 function crawlAljazeera(lastNewsUrl) {
 	logEvent('CRAWLING AlJazeera');
 
-	newsArray = [];
+	var delay = 5000; //in ms
+	var attempts = 10;
 	var i = 0;
+	newsArray = [];
 
+	//save original last news link
+	originallastNewsUrl = lastNewsUrl;
+	
 	//Delete domain name
 	lastNewsUrl = lastNewsUrl.slice(25);
 
@@ -20,16 +25,16 @@ function crawlAljazeera(lastNewsUrl) {
 					//get news link
 					var newsLink = $(this).find('a').attr('href');
 
-					//check if it's last news
-					if (newsLink == lastNewsUrl) {
-						//break the loop
-						return false;
-					}
-
 					//check if link releative
 					if (!newsLink.includes('https://')) {
 						//add domain name
 						newsLink = 'https://www.aljazeera.com' + newsLink;
+					}
+
+					//check if it's last news
+					if (newsLink == originallastNewsUrl) {
+						//break the loop
+						return false;
 					}
 
 					//get news title
@@ -68,12 +73,12 @@ function crawlAljazeera(lastNewsUrl) {
 				
 				//next loop
 				i++;
-				if (i < 10) {
+				if (i < attempts) {
 					findNews();
 				}
 			}
 
-		}, 3000)
+		}, delay)
 	}
 
 	//launch crawler

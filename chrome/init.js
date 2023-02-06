@@ -1,4 +1,5 @@
 const harvesterDateObj = new Object();
+let serevrUrl = 'https://harvester.local';
 
 $(document).ready(function(){
 
@@ -7,8 +8,9 @@ $(document).ready(function(){
 	var url = window.location.href;
 
 	if (url.includes('interfax.ru')) {harvester_getLastNews('interfax');}
-
 	else if (url.includes('aljazeera.com')) {harvester_getLastNews('aljazeera');}
+	else if (url.includes('nytimes.com')) {harvester_getLastNews('nytimes');}
+	
 
 });
 
@@ -63,7 +65,7 @@ function harvester_getLastNews(crawlerName) {
 		beforeSend: function(){
 			logEvent('REQUESTING last news');
 		  },
-		url: 'https://harvester.local/core/getLastNews.php',
+		url: serevrUrl + '/core/getLastNews.php',
 		method: 'get',
 		dataType: 'text',
 		data: {crawler: crawlerName},
@@ -73,6 +75,7 @@ function harvester_getLastNews(crawlerName) {
 	}).done(function(data) {
 		if (crawlerName == 'aljazeera') { crawlAljazeera(data); }
 		else if (crawlerName == 'interfax') { crawlInterfax(data); }
+		else if (crawlerName == 'nytimes') { crawlNytimes(data); }
 	});
 }
 
@@ -82,7 +85,7 @@ function harvester_sendData(newsArray) {
 		beforeSend: function(){
 			logEvent('SENDING DATA');
 		  },
-		url: 'https://harvester.local/core/receiveData.php',
+		url: serevrUrl + '/core/receiveData.php',
 		method: 'POST',
 		contentType: 'application/json',
 		dataType: 'json',
