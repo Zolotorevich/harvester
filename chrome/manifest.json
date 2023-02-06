@@ -24,9 +24,11 @@
       "matches": ["*://*/*"],
       "js": [
         "jquery-3.6.3.min.js",
-        "init.js"
-      ],
-      "css": ["toolbar.css"]
+        "init.js",
+        "crawlers/interfax.js",
+        "crawlers/tassEconomika.js",
+        "crawlers/aljazeera.js"
+      ]
     }
   ]
 }
