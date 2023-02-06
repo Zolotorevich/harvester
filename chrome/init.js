@@ -10,7 +10,7 @@ $(document).ready(function(){
 	if (url.includes('interfax.ru')) {harvester_getLastNews('interfax');}
 	else if (url.includes('aljazeera.com')) {harvester_getLastNews('aljazeera');}
 	else if (url.includes('nytimes.com')) {harvester_getLastNews('nytimes');}
-	
+	else if (url.includes('tass.ru')) {crawlTass();}
 
 });
 
@@ -20,6 +20,10 @@ function create_harvesterDateObj() {
 	// .seconds == 01
 	// .time == 1209
 	// .fullDateTime == 202302151209
+	// .today == 20230215
+	// .yesterday == 20230214
+	// .beforeyesterday == 20230213
+	// .year == 2023
 
 	const today = new Date();
 	var hour = today.getHours();
@@ -34,6 +38,22 @@ function create_harvesterDateObj() {
 	harvesterDateObj.seconds = addLeadingZero(seconds);
 	harvesterDateObj.time = addLeadingZero(hour) + addLeadingZero(minutes);
 	harvesterDateObj.fullDateTime = year + addLeadingZero(todayMonth + 1) + addLeadingZero(todayDayNumber) + addLeadingZero(hour) + addLeadingZero(minutes);
+	harvesterDateObj.today = year + addLeadingZero(todayMonth + 1) + addLeadingZero(todayDayNumber);
+	harvesterDateObj.year = year;
+
+	//Set Object yesterday
+	const yesterday = new Date();
+	yesterday.setDate(todayDayNumber - 1);
+	var yesterdayDayNumber = yesterday.getDate();
+	var yesterdayMonth = yesterday.getMonth();
+	harvesterDateObj.yesterday = yesterday.getFullYear().toString() + addLeadingZero(yesterdayMonth + 1) + addLeadingZero(yesterdayDayNumber);
+
+	//Set Object beforeyesterday
+	const beforeyesterday = new Date();
+	beforeyesterday.setDate(todayDayNumber - 2);
+	var beforeyesterdayDayNumber = beforeyesterday.getDate();
+	var beforeyesterdayMonth = beforeyesterday.getMonth();
+	harvesterDateObj.beforeyesterday = beforeyesterday.getFullYear().toString() + addLeadingZero(beforeyesterdayMonth + 1) + addLeadingZero(beforeyesterdayDayNumber);
 
 }
 
@@ -94,6 +114,7 @@ function harvester_sendData(newsArray) {
 			logEvent('DATA SEND');
 			logEvent('STATUS ' + data.statusText);
 			logEvent('RESPONCE ' + data.responseText);
+			console.log(data);
 		}
 	});
 
