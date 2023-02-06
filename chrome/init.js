@@ -8,8 +8,6 @@ $(document).ready(function(){
 
 	if (url.includes('interfax.ru')) {harvester_getLastNews('interfax');}
 
-	else if (url.includes('tass.ru/ekonomika')) {crawlTassEconomika();}
-
 	else if (url.includes('aljazeera.com')) {harvester_getLastNews('aljazeera');}
 
 });
@@ -74,6 +72,7 @@ function harvester_getLastNews(crawlerName) {
 		}
 	}).done(function(data) {
 		if (crawlerName == 'aljazeera') { crawlAljazeera(data); }
+		else if (crawlerName == 'interfax') { crawlInterfax(data); }
 	});
 }
 

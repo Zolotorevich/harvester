@@ -27,7 +27,8 @@
         "init.js",
         "crawlers/interfax.js",
         "crawlers/tassEconomika.js",
-        "crawlers/aljazeera.js"
+        "crawlers/aljazeera.js",
+        "crawlers/reuters.js"
       ]
     }
   ]

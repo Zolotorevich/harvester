@@ -17,6 +17,7 @@ $decoded = json_decode($content, true);
 
 //update crawler name
 if (str_contains($decoded[0]["link"], 'www.aljazeera.com')) { $crawlerName = 'aljazeera'; }
+else if(str_contains($decoded[0]["link"], 'interfax.ru')) { $crawlerName = 'interfax'; }
 
 //check if crawler has name
 if ($crawlerName == '') {

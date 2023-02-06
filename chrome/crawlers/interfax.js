@@ -2,62 +2,89 @@ function crawlInterfax(lastNewsUrl) {
 	logEvent('CRAWLING Interfax');
 
 	newsArray = [];
+	var i = 0;
 
-	//search for last news
-	for (let i = 0; i < 5; i++) {
+	//Delete domain name
+	lastNewsUrl = lastNewsUrl.slice(lastNewsUrl.indexOf('.ru') + 3);
 
-		//check if last news loaded
-		if ($(`.timeline a[href*="${lastNewsUrl}"]`).length > 0) {
+	function findNews() {
+		setTimeout(function() {
 
-			logEvent('SEARCHING attempt №' + (i + 1) + ' SUCCESS');
+			if ($(`.timeline a[href*="${lastNewsUrl}"]`).length > 0) {
 
-			//create results array
-			$('.timeline h3').each(function() {
+				//Found last news
+				logEvent('SEARCHING attempt №' + (i + 1) + ' SUCCESS');
 
-				//get news time
-				var newsTime = $(this).parent().parent().children('time').attr('datetime');
+				//create results array
+				$('.timeline h3').each(function() {
+					//get news link
+					var newsLink = $(this).parent().attr('href');
 
-				//TODO convert news time
+					//check if it's last news
+					if (newsLink == lastNewsUrl) {
+						//break the loop
+						return false;
+					}
 
-				//get news title
-				var newsTitle = $(this).text();
+					//check if link releative
+					if (!newsLink.includes('https://')) {
+						//add domain name
+						newsLink = 'https://www.interfax.ru' + newsLink;
+					}
 
-				//get news link
-				var newsLink = $(this).parent().attr('href');
+					//get news title
+					var newsTitle = $(this).text();
 
-				//check if link releative
-				if (!newsLink.includes('https://')) {
-					//add domain name
-					newsLink = 'https://www.interfax.ru' + newsLink;
-				}
+					//get raw date
+					var rawNewsDate = $(this).parent().parent().children('time').attr('datetime');
 
-				//save to array
-				newsArray.push({
-					'time':newsTime,
-					'title':newsTitle,
-					'link':newsLink
+					//extract date
+					year = rawNewsDate.slice(0,4);
+					day = rawNewsDate.slice(5,7) + rawNewsDate.slice(8,10);
+					time = rawNewsDate.slice(11);
+
+					//set date
+					var newsDate = year + day + time.replace(':','');
+
+					//save to array
+					newsArray.push({
+						'date':newsDate,
+						'title':newsTitle,
+						'link':newsLink
+					});
+
 				});
 
-			});
+				console.log(newsArray);
 
-			//get out of loop
-			i = 1000;
-			
-		} else {
+				//send data
+				if (newsArray.length > 0) {
+					harvester_sendData(newsArray);
+				} else {
+					logEvent('NOTHING TO SEND no new news');
+				}
+				
+			} else {
 
-			logEvent('SEARCHING attempt №' + (i + 1) + ' FAIL');
+				//Last news not found
+				logEvent('SEARCHING attempt №' + (i + 1) + ' NOT FOUND');
 
-			//TODO press more news button
-			$('div.timeline__more').click();
+				//press more news button if exist
+				if ($('div.timeline__more').length > 0) {
+					$('div.timeline__more').click();
+				}
+				
+				//next loop
+				i++;
+				if (i < 10) {
+					findNews();
+				}
+			}
 
-			//wait a second
-			
-
-		}
-
+		}, 3000)
 	}
 
-	console.log(newsArray);
-
+	//launch crawler
+	findNews();
 
 }
