@@ -251,6 +251,10 @@ body {
 	margin: 0;
 }
 
+.menuExportKey1 {
+	background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjYzZjNmM2OwogICAgICAgIGZpbGwtcnVsZTogZXZlbm9kZDsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPHBhdGggaWQ9Il8xIiBkYXRhLW5hbWU9IjEiIGNsYXNzPSJjbHMtMSIgZD0iTTM2LDIzMUg1MGEyLDIsMCwwLDEsMiwydjE0YTIsMiwwLDAsMS0yLDJIMzZhMiwyLDAsMCwxLTItMlYyMzNBMiwyLDAsMCwxLDM2LDIzMVptMSwxSDQ5YTIsMiwwLDAsMSwyLDJ2MTJhMiwyLDAsMCwxLTIsMkgzN2EyLDIsMCwwLDEtMi0yVjIzNEEyLDIsMCwwLDEsMzcsMjMyWm01LjQyNCwxMS44MjFoMS4yMXYtNy43SDQyLjdhMS44LDEuOCwwLDAsMS0xLjY1LDEuMDQ1djAuNzcxaDEuMzc1djUuODg1WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTM0IC0yMzEpIi8+Cjwvc3ZnPgo=") no-repeat left top;
+}
+
 .menuExportKey2 {
 	background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjYzVjNWM1OwogICAgICAgIGZpbGwtcnVsZTogZXZlbm9kZDsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPHBhdGggaWQ9Il8yIiBkYXRhLW5hbWU9IjIiIGNsYXNzPSJjbHMtMSIgZD0iTTM2LDIzMUg1MGEyLDIsMCwwLDEsMiwydjE0YTIsMiwwLDAsMS0yLDJIMzZhMiwyLDAsMCwxLTItMlYyMzNBMiwyLDAsMCwxLDM2LDIzMVptMSwxSDQ5YTIsMiwwLDAsMSwyLDJ2MTJhMiwyLDAsMCwxLTIsMkgzN2EyLDIsMCwwLDEtMi0yVjIzNEEyLDIsMCwwLDEsMzcsMjMyWm00LjQzNCwxMC42NjZjMC44OC0xLjcsMy43NC0yLjAzNSwzLjc0LTQuMjlhMi40MDYsMi40MDYsMCwwLDAtMi41ODUtMi4zNjYsMi40NzEsMi40NzEsMCwwLDAtMi40NzUsMS43NmwwLjk5LDAuNDQxYTEuNTY4LDEuNTY4LDAsMCwxLDEuNDg1LTEuMDQ2LDEuMjA2LDEuMjA2LDAsMCwxLDEuMzc1LDEuMjExYzAsMS44Ny0zLjk2MSwxLjk4LTMuOTYxLDUuNDQ1aDUuMTcxdi0xLjE1NWgtMy43NFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zNCAtMjMxKSIvPgo8L3N2Zz4K") no-repeat left top;
 }
@@ -500,11 +504,10 @@ body {
 }
 
 #leditorEndLine {
-	background-color: var(--indicator-grey);
 	width: 280px;
-	height: 4px;
-	border-radius: 2px;
-	margin: 40px auto;
+	height: 20px;
+	background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNS4zNzUiIGhlaWdodD0iOC4yNSIgdmlld0JveD0iMCAwIDI1LjM3NSA4LjI1Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjMWIxYjFiOwogICAgICAgIGZpbGwtcnVsZTogZXZlbm9kZDsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPHBhdGggaWQ9ImVuZGxpbmUiIGNsYXNzPSJjbHMtMSIgZD0iTTc4Mi43MjksOTAxLjc5M2ExOC44NDUsMTguODQ1LDAsMCwwLDI1LjM2LDBsLTMuMjIzLTMuMzYzYy0yLjEsMi4xLTUuNDY0LDMuMzYzLTkuNDU3LDMuMzYzYTEzLjIsMTMuMiwwLDAsMS05LjM4Ny0zLjM2M1oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03ODIuNzE5IC04OTguNDM4KSIvPgo8L3N2Zz4K") no-repeat center;
+	margin: 20px auto;
 }
 
 .leditorNewsWithTimeEdit, .leditorNewsLeaderEdit {
@@ -969,4 +972,77 @@ body {
 	text-transform: uppercase;
 	font-family: TTNormsPro-Bold;
 	color: var(--red);
+}
+
+/* HARVESTER */
+#harvesterContainer {
+	width: 850px;
+	margin: 200px auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+#harvesterContainer a:link, #harvesterContainer a:hover, #harvesterContainer a:visited, #harvester_caret a:link, #harvester_caret a:hover, #harvester_caret a:visited {
+	text-decoration: none;
+}
+
+.newsContainer, #harvester_caret {
+	box-sizing: border-box;
+	padding: 16px 0 16px 0;
+	display: flex;
+	font-size: 20px;
+	line-height: 26px;
+}
+
+.newsTime {
+	width:100px;
+	text-align: right;
+	flex-shrink: 0;
+	color: var(--indicator-grey);
+}
+
+.newsTitle {
+	padding: 0 0 0 10px;
+	box-sizing: border-box;
+	color: var(--black);
+}
+
+.newsTitle:hover {
+	font-family: TTNormsPro-Medium;
+}
+
+#harvester_caret {
+	-webkit-font-smoothing: antialiased;
+	position: fixed;
+	top: 50px;
+	left: calc(50% - 425px);
+	width: 850px;
+	background-color: #fff;
+	border-radius: 8px;
+	display: flex;
+	-webkit-box-shadow: 0px 15px 30px 0px rgba(17, 35, 58, 0.2); 
+	-moz-box-shadow: 0px 15px 30px 0px rgba(17, 35, 58, 0.2); 
+	box-shadow: 0px 15px 30px 0px rgba(17, 35, 58, 0.2);
+}
+
+#harvester_caret img {
+	width: 16px;
+	height: 16px;
+	margin: 3px 0 0 0;
+}
+
+#caret_sourceIcon {
+	width:32px;
+	text-align: right;
+	flex-shrink: 0;
+}
+
+.caret_newsTime {
+	width:68px;
+	text-align: right;
+	flex-shrink: 0;
+	color: var(--display-grey);
+}
+
+.caret_newsTitle {
+	font-family: TTNormsPro-Medium;
 }
