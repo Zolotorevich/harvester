@@ -987,10 +987,14 @@ body {
 
 .newsContainer, #harvester_caret {
 	box-sizing: border-box;
-	padding: 16px 0 16px 0;
+	padding: 16px 0 11px 0;
 	display: flex;
 	font-size: 20px;
 	line-height: 26px;
+}
+
+.newsContainer:hover {
+	opacity: 1;
 }
 
 .newsTime {
@@ -1010,10 +1014,14 @@ body {
 	font-family: TTNormsPro-Medium;
 }
 
+.newsViewed {
+	opacity: .2;
+}
+
 #harvester_caret {
 	-webkit-font-smoothing: antialiased;
 	position: fixed;
-	top: 50px;
+	top: 240px;
 	left: calc(50% - 425px);
 	width: 850px;
 	background-color: #fff;
