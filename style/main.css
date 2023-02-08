@@ -507,7 +507,7 @@ body {
 	width: 280px;
 	height: 20px;
 	background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNS4zNzUiIGhlaWdodD0iOC4yNSIgdmlld0JveD0iMCAwIDI1LjM3NSA4LjI1Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjMWIxYjFiOwogICAgICAgIGZpbGwtcnVsZTogZXZlbm9kZDsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPHBhdGggaWQ9ImVuZGxpbmUiIGNsYXNzPSJjbHMtMSIgZD0iTTc4Mi43MjksOTAxLjc5M2ExOC44NDUsMTguODQ1LDAsMCwwLDI1LjM2LDBsLTMuMjIzLTMuMzYzYy0yLjEsMi4xLTUuNDY0LDMuMzYzLTkuNDU3LDMuMzYzYTEzLjIsMTMuMiwwLDAsMS05LjM4Ny0zLjM2M1oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03ODIuNzE5IC04OTguNDM4KSIvPgo8L3N2Zz4K") no-repeat center;
-	margin: 20px auto;
+	margin: 60px auto;
 }
 
 .leditorNewsWithTimeEdit, .leditorNewsLeaderEdit {
@@ -1008,10 +1008,11 @@ body {
 	padding: 0 0 0 10px;
 	box-sizing: border-box;
 	color: var(--black);
+	font-family: TTNormsPro-Medium;
 }
 
 .newsTitle:hover {
-	font-family: TTNormsPro-Medium;
+	color: var(--blue);
 }
 
 .newsViewed {
