@@ -49,14 +49,13 @@ function displayHomeNews() {
 	console.log(newsData);
 
 	//Clear view
-	//clearView();
+	$('#harvesterContainer').html();
 
-	//
+	//display data
 	if (newsData.length > 0) {
+		
 		//sort by time
 		sortJSON(newsData,'date', 'dsc');
-
-		
 
 		//display news
 		$.each(newsData, function(i) {
@@ -68,13 +67,9 @@ function displayHomeNews() {
 			$('#harvesterContainer').append(html);
 		});
 
+		//add end line
 		$('#harvesterContainer').append('<div id="leditorEndLine"></div>');
 
-		
 	}
 		
-}
-
-function addNewsToList(id,date,litle,link,viewed) {
-
 }
