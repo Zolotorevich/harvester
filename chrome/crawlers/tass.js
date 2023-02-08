@@ -93,7 +93,7 @@ function crawlTass() {
 function convertTassDate(rawDate) {
 
 	//Now
-	if (rawDate.includes('Сейчас')) {
+	if (rawDate.includes('Сейчас') || rawDate.includes('Молния')) {
 		return harvesterDateObj.fullDateTime;
 	}
 
