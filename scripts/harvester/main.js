@@ -11,41 +11,34 @@ $(document).ready(function(){
 	createDateObject();
 
 	//load home news
-	loadHomeNews();
+	loadNews('home');
 
 });
 
-function loadHomeNews() {
+function loadNews(issue) {
 
-	//if it's friday evening, weekends or monday morning -> get news from last friday
+	//generate startDate
 	if (dateObj.weekends) {
-		$.ajax({
-			url: '/core/getNews.php',
-			method: 'get',
-			dataType: 'json',
-			data: {issue: 'home', startDate: dateObj.lastFriday + '1600'},
-			success: function(data){
-				newsData = data;
-			}
-		}).done(function() {
-			displayHomeNews();
-		});
+		startDate = dateObj.lastFriday + '1600';
 	} else {
-		$.ajax({
-			url: '/core/getNews.php',
-			method: 'get',
-			dataType: 'json',
-			data: {issue: 'home', startDate: dateObj.yesterday + '1600'},
-			success: function(data){
-				newsData = data;
-			}
-		}).done(function() {
-			displayHomeNews();
-		});
+		startDate = dateObj.yesterday + '1600';
 	}
+	
+	$.ajax({
+		url: '/core/getNews.php',
+		method: 'get',
+		dataType: 'json',
+		data: {issue: issue, startDate: startDate},
+		success: function(data){
+			newsData = data;
+		}
+	}).done(function() {
+		displayNews();
+	});
+
 }
 
-function displayHomeNews() {
+function displayNews() {
 	console.log(newsData);
 
 	//Clear view
@@ -61,7 +54,18 @@ function displayHomeNews() {
 		$.each(newsData, function(i) {
 
 			html = '<a href="' + newsData[i].link + '" target="_blank">';
-			html += '<div class="newsContainer"><div class="newsTime">' + fullDateToTime(newsData[i].date) + '</div>';
+
+			html += '<div class="newsContainer';
+
+			//check if news viewed
+			if (newsData[i].viewed == 1) {
+				html += ' newsViewed';
+			}
+
+			html += '">';
+
+			html += '<div class="newsTime">' + fullDateToTime(newsData[i].date) + '</div>';
+			
 			html += '<div class="newsTitle">' + newsData[i].title + '</div></div></a>';
 
 			$('#harvesterContainer').append(html);
@@ -71,5 +75,14 @@ function displayHomeNews() {
 		$('#harvesterContainer').append('<div id="leditorEndLine"></div>');
 
 	}
-		
+
+	//change display values
+	totalNews = newsData.length;
+	viewedNews = newsData.filter(item => item.viewed == 1).length;
+	lastUpdate = fullDateToTime(newsData[0].date);
+
+	mainDisplay('unreadCounter',(totalNews - viewedNews));
+	mainDisplay('timeOfUpdate',lastUpdate);
+	mainDisplay('allNewsCounter',totalNews);
+
 }

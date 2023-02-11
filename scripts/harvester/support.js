@@ -126,40 +126,41 @@ function numberOfNewsToWordFreeExport(numberOfNews) {
 	
 }
 
-function createTemplateObjects() {
-	HQtemplateMO.text = 'МО\n: наши ракеты посетили. Наступаем на Донецком направлении, уничтожили 50 противников. Лётчики, ракетчики и артиллеристы прибахнули™ 170 противников на Купянском, Красно-Лиманском и Южно-Донецком направлениях, 3 РЛС, 73 огневые точки и 86 районов с живой силой. Уничтожили МиГ-29 и 2 × Ми-8 в воздушном бою, 15 БПЛА, 17 танков/БТР, РСЗО, 4 артиллерии и 17 автомобилей. Всего: 355 самолётов, 196 вертолётов, 2756 БПЛА, 399 ЗРК, 7313 танков/БТР, 954 РСЗО, 3746 артиллерии и 7827 автомобилей.';
-	HQtemplateMO.link = 'https://t.me/mod_russia';
-	HQtemplateMO.id = 'temp_mo';
-	HQtemplateMO.glue = 0;
-	HQtemplateMO.active = 1;
-	HQtemplateMO.count = 1;
+//change main display values
+function mainDisplay(type,message) {
 
-	HQtemplateDNR.text = 'ДНР\n: уничтожили 100 противников, 2 танка, РСЗО, 2 гаубицы и 6 автомобилей.';
-	HQtemplateDNR.link = 'https://t.me/nm_dnr';
-	HQtemplateDNR.id ='temp_dnr';
-	HQtemplateDNR.glue = 0;
-	HQtemplateDNR.active = 1;
-	HQtemplateDNR.count = 1;
+	//change main counter
+	if (type == 'unreadCounter') {
+		$('#displayNewsCounter').html(addLeadingZero(message));
+		
+		return true;
+	}
 
-	HQtemplateLNR.text = 'ЛНР\n: уничтожили 85 противников, 2 танка, 3 БТР, 1 артиллерию и 16 автомобилей.';
-	HQtemplateLNR.link = 'https://t.me/millnr';
-	HQtemplateLNR.id ='temp_lnr';
-	HQtemplateLNR.glue = 0;
-	HQtemplateLNR.active = 1;
-	HQtemplateLNR.count = 1;
+	//change time
+	if (type == 'timeOfUpdate') {
+		$('#displayNewsCounterCorrection').html(message);
 
-	HQtemplateSDNR.text = 'СЦКК ДНР\n: 68 обстрелов: Донецк, . Погибли 0 мирных, 0 ранены, повреждены 8 зданий.';
-	HQtemplateSDNR.link = 'https://t.me/DNR_SCKK';
-	HQtemplateSDNR.id ='temp_sdnr';
-	HQtemplateSDNR.glue = 0;
-	HQtemplateSDNR.active = 1;
-	HQtemplateSDNR.count = 1;
+		return true;
+	}
 
-	HQtemplateSLNR.text = 'СЦКК ЛНР\n: 1 обстрел: Алчевск. Разрушены 2 здания, 17 повреждены.';
-	HQtemplateSLNR.link = 'https://t.me/LPR_JCCC';
-	HQtemplateSLNR.id ='temp_slnr';
-	HQtemplateSLNR.glue = 0;
-	HQtemplateSLNR.active = 1;
-	HQtemplateSLNR.count = 1;
+	//change all news
+	if (type == 'allNewsCounter') {
+		$('#displayNewsTime').html(addLeadingZero(message));
+
+		return true;
+	}
+
+	//add leading zero if number < 10 or <100
+	function addLeadingZero(number) {
+		if (number < 10) {
+			return '<span>00</span>' + number;
+		}
+
+		if (number < 100) {
+			return '<span>0</span>' + number;
+		}
+
+		return number;
+	}
 
 }

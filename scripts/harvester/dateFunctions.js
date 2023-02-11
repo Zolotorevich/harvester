@@ -7,7 +7,7 @@ function createDateObject() {
 	// .todayByWordEng == '10 January'
 	// .todayNumber == '10'
 	// .todayMonth == '1'
-	// .yesterday == 202301091700
+	// .yesterday == 20230109
 	// .yesterdayByWordRus == '9 января'
 	// .yesterdayByWordEng == '9 January'
 	// .yesterdayNumber == '10'

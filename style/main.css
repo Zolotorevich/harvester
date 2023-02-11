@@ -204,6 +204,11 @@ body {
 	margin: 30px 0 0 14px;
 }
 
+#displayNewsCounter span {
+	color: var(--display-grey);
+	opacity: .5;
+}
+
 #displayNewsTime, #displayNewsCounterCorrection {
 	font-family: TTNormsPro-Medium;
 	color: var(--display-grey);

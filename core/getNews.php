@@ -6,14 +6,42 @@ include $_SERVER['DOCUMENT_ROOT']."/core/bdconnect.php";
 //check get
 if(isset($_GET['issue']) && isset($_GET['startDate'])) {
 
-	//TODO get list of crawlers
-	// $raw_crawlers = $connection->query("SELECT * FROM crawlers");
+	//init
+	$startDate = $_GET['startDate'];
+	$issue = $_GET['issue'];
 
-	// //collect result
-	// $crawlers = $result->fetch_all(MYSQLI_ASSOC);
+	//get list of crawlers
+	$raw_crawlers = $connection->query("SELECT name FROM crawlers WHERE issue LIKE '$issue';");
+	
+	//collect result
+	$crawlers = $raw_crawlers->fetch_all(MYSQLI_NUM);
 
+	//init query
+	$sql = '';
 
-    echo getNews($connection,$_GET['issue'],$_GET['startDate']);
+	foreach ($crawlers as $index => $crawlerName) {
+		if ($index == 0) {
+			$sql = "SELECT * FROM ".$crawlerName[0]." WHERE date >= '$startDate'";
+		} else {
+			$sql .= " UNION SELECT * FROM ".$crawlerName[0]." WHERE date >= '$startDate'";
+		}
+	}
+
+	//close query
+	$sql .= ";";
+
+	//preform sql
+	$result = $connection->query($sql);
+	
+	//collect result
+	$rows = $result->fetch_all(MYSQLI_ASSOC);
+
+	//close the connection
+	$connection->close();
+
+	//return reslut
+	echo json_encode($rows, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
 } else {
 	echo 'FAIL: invalid GET';
 }
