@@ -37,14 +37,10 @@
 
 @font-face {font-family: 'TTNormsPro-Regular';src: url('webfonts/3904AD_B_0.eot');src: url('webfonts/3904AD_B_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3904AD_B_0.woff2') format('woff2'),url('webfonts/3904AD_B_0.woff') format('woff'),url('webfonts/3904AD_B_0.ttf') format('truetype');}
  
-
 @font-face {font-family: 'TTNormsPro-Medium';src: url('webfonts/3904AD_D_0.eot');src: url('webfonts/3904AD_D_0.eot?#iefix') format('embedded-opentype'),url('webfonts/3904AD_D_0.woff2') format('woff2'),url('webfonts/3904AD_D_0.woff') format('woff'),url('webfonts/3904AD_D_0.ttf') format('truetype');}
 
-@font-face {font-family: 'Inter-Regular';src: url('webfonts/Inter-Regular.ttf') format('truetype');}
-@font-face {font-family: 'Inter-Medium';src: url('webfonts/Inter-Medium.ttf') format('truetype');}
-
-@font-face {font-family: "Roboto";src: url('webfonts/roboto-regular.woff2') format("woff2");}
-@font-face {font-family: "RobotoBold";src: url('webfonts/roboto-bold.woff2') format("woff2");}
+@font-face {font-family: 'Duo'; src: url('webfonts/iAWriterDuoV.ttf') format("truetype");}
+@font-face {font-family: 'DuoBold'; src: url('webfonts/iAWriterDuoS-Bold.ttf') format("truetype");}
 
 :root {
 	--white: #f6f6f6;
@@ -1003,10 +999,13 @@ body {
 }
 
 .newsTime {
-	width:100px;
+	width:68px;
 	text-align: right;
 	flex-shrink: 0;
 	color: var(--indicator-grey);
+	font-family: 'Duo';
+	font-size: 19px;
+	line-height: 23px;
 }
 
 .newsTitle {
@@ -1024,10 +1023,22 @@ body {
 	opacity: .2;
 }
 
+.sourceIcon {
+	width:32px;
+	text-align: right;
+	flex-shrink: 0;
+}
+
+.sourceIcon img {
+	width: 16px;
+	height: 16px;
+	margin: 3px 0 0 0;
+}
+
 #harvester_caret {
 	-webkit-font-smoothing: antialiased;
 	position: fixed;
-	top: 240px;
+	top: 540px;
 	left: calc(50% - 425px);
 	width: 850px;
 	background-color: #fff;
@@ -1055,8 +1066,20 @@ body {
 	text-align: right;
 	flex-shrink: 0;
 	color: var(--display-grey);
+	font-family: 'Duo';
+	font-size: 19px;
+	line-height: 23px;
 }
 
 .caret_newsTitle {
 	font-family: TTNormsPro-Medium;
+}
+
+#noData {
+	width: 100%;
+	text-align: center;
+	font-size: 20px;
+	line-height: 26px;
+	text-transform: uppercase;
+	font-family: TTNormsPro-Bold;
 }

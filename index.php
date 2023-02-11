@@ -13,9 +13,9 @@
 
 
 	<div id="mainDisplay">
-		<div id="displayNewsCounter">0</div>
-		<div id="displayNewsTime">0</div>
-		<div id="displayNewsCounterCorrection">00:00</div>
+		<div id="displayNewsCounter"><span>000</span></div>
+		<div id="displayNewsTime"></div>
+		<div id="displayNewsCounterCorrection"></div>
 	</div>
 
 	<div id="leftSideMenu">
@@ -24,14 +24,6 @@
 			<li id="issue_foreign" class="menuExportKey2">Foreign</li>
 		</ul>
 	</div>
-
-	<!-- <a href="https://tass.ru/mezhdunarodnaya-panorama/16988589" id="caret_link" target="_blank">
-		<div id="harvester_caret">
-			<div id="caret_sourceIcon"><img src="/style/sourceIcons/tass.png"></div>
-			<div class="caret_newsTime">01:14</div>
-			<div class="newsTitle caret_newsTitle">связи с землетрясением в Сирии и Турции</div>
-		</div>
-	</a> -->
 
 	<div id="harvesterContainer">
 

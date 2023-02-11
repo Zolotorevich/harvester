@@ -1,16 +1,19 @@
 const harvesterDateObj = new Object();
+const harvesterCrawler = new Object();
 let serevrUrl = 'https://harvester.local';
 
 $(document).ready(function(){
 
+	logEvent('HARVESTER START');
+
+	//generate date object
 	create_harvesterDateObj();
 
-	var url = window.location.href;
-
-	if (url.includes('interfax.ru')) {harvester_getLastNews('interfax');}
-	else if (url.includes('aljazeera.com')) {harvester_getLastNews('aljazeera');}
-	else if (url.includes('nytimes.com')) {harvester_getLastNews('nytimes');}
-	else if (url.includes('tass.ru')) {crawlTass();}
+	//generate crawler object
+	create_harvesterCrawlerObj();
+	
+	//run crawler
+	harvester_getLastNews(harvesterCrawler.name);
 
 });
 
@@ -57,6 +60,30 @@ function create_harvesterDateObj() {
 
 }
 
+function create_harvesterCrawlerObj() {
+	var url = window.location.href;
+
+	if (url.includes('interfax.ru')) {
+		harvesterCrawler.name = 'interfax';
+		harvesterCrawler.alias = 'interfax';
+	}
+	else if (url.includes('aljazeera.com')) {
+		harvesterCrawler.name = 'aljazeera';
+		harvesterCrawler.alias = 'aljazeera';
+	}
+	
+	else if (url.includes('nytimes.com')) {
+		harvesterCrawler.name = 'nytimes';
+		harvesterCrawler.alias = 'nytimes';
+	}
+
+	else if (url.includes('tass.ru/mezhdunarodnaya-panorama')) {
+		harvesterCrawler.name = 'tass_world';
+		harvesterCrawler.alias = 'tass';
+	}
+
+}
+
 //add leading zero if needed and return string
 function addLeadingZero(number) {
 	if (number >= 0 && number < 10) {
@@ -79,8 +106,6 @@ function logEvent(message) {
 
 function harvester_getLastNews(crawlerName) {
 
-	logEvent('HARVESTER START');
-
 	$.ajax({
 		beforeSend: function(){
 			logEvent('REQUESTING last news');
@@ -93,23 +118,29 @@ function harvester_getLastNews(crawlerName) {
 			logEvent('RECIEVED ' + data);
 		}
 	}).done(function(data) {
-		if (crawlerName == 'aljazeera') { crawlAljazeera(data); }
-		else if (crawlerName == 'interfax') { crawlInterfax(data); }
-		else if (crawlerName == 'nytimes') { crawlNytimes(data); }
+
+		lastNews = JSON.parse(data);
+
+		if (harvesterCrawler.alias == 'aljazeera') { crawlAljazeera(lastNews); }
+		else if (harvesterCrawler.alias == 'interfax') { crawlInterfax(lastNews); }
+		else if (harvesterCrawler.alias == 'nytimes') { crawlNytimes(lastNews); }
 	});
 }
 
 function harvester_sendData(newsArray) {
 
+	var finalArray = [{carwler:harvesterCrawler.alias}, newsArray];
+
 	$.ajax({
 		beforeSend: function(){
 			logEvent('SENDING DATA');
+			console.log(finalArray);
 		  },
 		url: serevrUrl + '/core/receiveData.php',
 		method: 'POST',
 		contentType: 'application/json',
 		dataType: 'json',
-		data: JSON.stringify(newsArray),
+		data: JSON.stringify(finalArray),
 		complete: function(data){
 			logEvent('DATA SEND');
 			logEvent('STATUS ' + data.statusText);

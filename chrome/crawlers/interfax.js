@@ -1,4 +1,4 @@
-function crawlInterfax(lastNewsUrl) {
+function crawlInterfax(lastNews) {
 	logEvent('CRAWLING Interfax');
 
 	var delay = 5000; //in ms
@@ -6,16 +6,16 @@ function crawlInterfax(lastNewsUrl) {
 	var i = 0;
 	newsArray = [];
 	
-	//save original last news link
-	originallastNewsUrl = lastNewsUrl;
+	//last news link
+	lastNewsFullUrl = lastNews[0].lastLink;
 
 	//Delete domain name
-	lastNewsUrl = lastNewsUrl.slice(lastNewsUrl.indexOf('.ru') + 3);
+	lastNewsShortUrl = lastNewsFullUrl.slice(lastNewsFullUrl.indexOf('.ru') + 3);
 
 	function findNews() {
 		setTimeout(function() {
 
-			if ($(`.timeline a[href*="${lastNewsUrl}"]`).length > 0) {
+			if ($(`.timeline a[href*="${lastNewsShortUrl}"]`).length > 0) {
 
 				//Found last news
 				logEvent('SEARCHING attempt №' + (i + 1) + ' SUCCESS');
@@ -32,7 +32,7 @@ function crawlInterfax(lastNewsUrl) {
 					}
 
 					//check if it's last news
-					if (newsLink == originallastNewsUrl) {
+					if (newsLink == lastNewsFullUrl) {
 						//break the loop
 						return false;
 					}
@@ -59,8 +59,6 @@ function crawlInterfax(lastNewsUrl) {
 					});
 
 				});
-
-				console.log(newsArray);
 
 				//send data
 				if (newsArray.length > 0) {

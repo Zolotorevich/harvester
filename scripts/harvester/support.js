@@ -150,6 +150,15 @@ function mainDisplay(type,message) {
 		return true;
 	}
 
+	//clear display with 0
+	if (type == 'status' && message == 'noData') {
+		$('#displayNewsCounter').html(addLeadingZero(0));
+		$('#displayNewsTime').html('0');
+		$('#displayNewsCounterCorrection').html('');
+
+		return true;
+	}
+
 	//add leading zero if number < 10 or <100
 	function addLeadingZero(number) {
 		if (number < 10) {
@@ -158,6 +167,10 @@ function mainDisplay(type,message) {
 
 		if (number < 100) {
 			return '<span>0</span>' + number;
+		}
+
+		if (number > 999) {
+			return '999';
 		}
 
 		return number;

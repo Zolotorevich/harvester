@@ -11,28 +11,19 @@ if(isset($_GET['crawler'])) {
 	$crawler = $_GET['crawler'];
 
 	//select last news link
-	$sql = "SELECT * FROM lastnews WHERE crawler LIKE '$crawler'";
+	$sql = "SELECT lastDate, lastTitle, lastLink FROM crawlers WHERE name LIKE '$crawler'";
 
 	//preform sql
 	$result = $connection->query($sql);
 
-	//check result
-	if ($result->num_rows > 0) {
+	//collect result
+	$rows = $result->fetch_all(MYSQLI_ASSOC);
 
-		//send data
-		while ($row = $result->fetch_assoc()) {
-			echo($row['lastNews']);
-		}
-
-	} else {
-
-		//send error
-		echo('FAIL: no last news for '.$crawler);
-
-	}
-
-	//close connection
+	//close the connection
 	$connection->close();
+
+	//return reslut
+	echo json_encode($rows, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
 } else {
 	echo('FAIL: no get value');

@@ -1,5 +1,6 @@
-//Object for storing dates
+//Objects for storing dates
 const dateObj = new Object();
+const dateObjMeta = new Object();
 
 //init data objects
 var newsData;
@@ -20,6 +21,7 @@ function loadNews(issue) {
 	//generate startDate
 	if (dateObj.weekends) {
 		startDate = dateObj.lastFriday + '1600';
+		// startDate = '202302121600';
 	} else {
 		startDate = dateObj.yesterday + '1600';
 	}
@@ -44,11 +46,18 @@ function displayNews() {
 	//Clear view
 	$('#harvesterContainer').html();
 
+	//total news
+	dateObjMeta.total = newsData.length;
+
 	//display data
-	if (newsData.length > 0) {
+	if (dateObjMeta.total > 0) {
 		
 		//sort by time
 		sortJSON(newsData,'date', 'dsc');
+
+		//update meta values
+		dateObjMeta.lastUpdate = fullDateToTime(newsData[0].date);
+		dateObjMeta.viewedNews = newsData.filter(item => item.viewed == 1).length;
 
 		//display news
 		$.each(newsData, function(i) {
@@ -64,6 +73,8 @@ function displayNews() {
 
 			html += '">';
 
+			html += '<div class="sourceIcon"><img src="/style/sourceIcons/tass.png"></div>';
+
 			html += '<div class="newsTime">' + fullDateToTime(newsData[i].date) + '</div>';
 			
 			html += '<div class="newsTitle">' + newsData[i].title + '</div></div></a>';
@@ -71,18 +82,26 @@ function displayNews() {
 			$('#harvesterContainer').append(html);
 		});
 
-		//add end line
-		$('#harvesterContainer').append('<div id="leditorEndLine"></div>');
+		//update main display
+		updateDisplay();
 
+	} else {
+		//display no data message
+		$('#harvesterContainer').append('<div id="noData">NO DATA</div>');
+
+		//update main display
+		mainDisplay('status','noData');
 	}
 
+	//add end line
+	$('#harvesterContainer').append('<div id="leditorEndLine"></div>');
+
+}
+
+
+function updateDisplay() {
 	//change display values
-	totalNews = newsData.length;
-	viewedNews = newsData.filter(item => item.viewed == 1).length;
-	lastUpdate = fullDateToTime(newsData[0].date);
-
-	mainDisplay('unreadCounter',(totalNews - viewedNews));
-	mainDisplay('timeOfUpdate',lastUpdate);
-	mainDisplay('allNewsCounter',totalNews);
-
+	mainDisplay('unreadCounter',(dateObjMeta.total - dateObjMeta.viewedNews));
+	mainDisplay('timeOfUpdate',dateObjMeta.lastUpdate);
+	mainDisplay('allNewsCounter',dateObjMeta.total);
 }
