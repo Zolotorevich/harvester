@@ -31,13 +31,24 @@ $(document).ready(function(){
 	//set timer for update viewed news
 	setInterval(sendViewedNews,9000);
 
+	//menu items event
+	$('#menuExportList li').click(function() {
+		var clickedIssue = $(this).attr('data-issue');
+		if (clickedIssue != dateObjMeta.issue) {
+			changeIssue(clickedIssue);
+			location.hash = '#' + clickedIssue;
+		}
+	});
+
 });
 
 function changeIssue(issueName) {
 	//save viewed
 	sendViewedNews();
 
-	//TODO change menu items
+	//change menu items
+	$('#menuExportList li').removeClass('menuExportSelected');
+	$('#issue_' + issueName).addClass('menuExportSelected');
 
 	//set global issue name
 	dateObjMeta.issue = issueName;
@@ -62,7 +73,7 @@ function loadNews() {
 		dataType: 'json',
 		data: {issue: dateObjMeta.issue, startDate: startDate},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			newsData = data;
 		}
 	}).done(function() {
@@ -103,7 +114,7 @@ function sendViewedNews() {
 function displayNews() {
 
 	//Clear view
-	$('#harvesterContainer').html();
+	$('#harvesterContainer').html('');
 
 	//total news
 	dateObjMeta.total = newsData.length;

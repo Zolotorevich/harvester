@@ -20,8 +20,8 @@
 
 	<div id="leftSideMenu">
 		<ul id="menuExportList">
-			<li id="issue_home" class="menuExportSelected">Home</li>
-			<li id="issue_foreign" class="menuExportKey2">Foreign</li>
+			<li id="issue_home" data-issue="home" class="menuExportKey1">Home</li>
+			<li id="issue_foreignNews" data-issue="foreignNews" class="menuExportKey2">Foreign</li>
 		</ul>
 	</div>
 
