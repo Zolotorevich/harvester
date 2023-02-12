@@ -6,12 +6,15 @@ const dateObjMeta = new Object();
 var newsData;
 var viewedNews = [];
 
+//CMD key
+var cmdKey = false;
+
 $(document).ready(function(){
 
 	//create dateObj
 	createDateObject();
 
-	//set default issue
+	//TODO set issue based on hash
 	dateObjMeta.issue = 'home';
 
 	//load news
@@ -112,7 +115,14 @@ function displayNews() {
 
 			html += '<div class="newsTime">' + fullDateToTime(newsData[i].date) + '</div>';
 			
-			html += '<div class="newsTitle">' + newsData[i].title + '</div></div></a>';
+			html += '<div class="newsTitle"><span>' + newsData[i].title + '</span>';
+
+			//add preview if any
+			if (newsData[i].preview != '') {
+				html += '<div class="newsPreview">' + newsData[i].preview + '</div>';
+			}
+
+			html += '</div></div></a>';
 
 			$('#harvesterContainer').append(html);
 		});
@@ -146,24 +156,32 @@ function updateDisplay() {
 
 function addNewsEvenets() {
 	$('.newsContainerLink').click(function(event) {
-		if(event.which == 1) {
+		if(event.which == 1 && !cmdKey) {
 			event.preventDefault();
-			markPreviousAsViewed($(this));
-			moveCarret($(this));
-		 }
+		}
+		markPreviousAsViewed($(this));
+		moveCarret($(this));
 	});
 
 	$('.newsContainerLink').mouseover(function() {
 		$(this).find('.sourceIcon img').show();
-		$(this).find('.newsTitle').addClass('newsTitle_hover');
+		$(this).find('.newsTitle span').addClass('newsTitle_hover');
 	  })
 	  .mouseout(function() {
 		$(this).find('.sourceIcon img').hide();
-		$(this).find('.newsTitle').removeClass('newsTitle_hover');
+		$(this).find('.newsTitle span').removeClass('newsTitle_hover');
 	});
 
 	//keyboard hotkeys
 	$('body').keydown(function( event ) { keyboardShortcut(event); });
+	$('body').keyup(function( event ) { 
+		//CMD key
+		if (event.keyCode == 91 || event.keyCode == 93) {
+			cmdKey = false;
+		}
+	 });
+
+	
 }
 
 function moveCarret(element, scroll = false) {
@@ -174,11 +192,13 @@ function moveCarret(element, scroll = false) {
 	//add viewed class
 	$(element).find('.newsContainer').addClass('newsViewed');
 
-	//clear caret class
+	//clear caret class and hide preview
 	$('.newsContainer').removeClass('newsCaret');
+	$('.newsPreview').hide();
 
-	//add caret class
+	//add caret class and show preview
 	$(element).find('.newsContainer').addClass('newsCaret');
+	$(element).find('.newsPreview').show();
 
 	//scroll to caret
 	if (scroll) {
@@ -291,7 +311,11 @@ function keyboardShortcut(event) {
 			moveCarret($(`a[data-id="${oldPosition}"]`));
 		}, 10);
 		
-		
+	}
+
+	//CMD key
+	if (event.keyCode == 91 || event.keyCode == 93) {
+		cmdKey = true;
 	}
 	
 }

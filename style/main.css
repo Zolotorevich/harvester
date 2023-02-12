@@ -977,7 +977,7 @@ body {
 
 /* HARVESTER */
 #harvesterContainer {
-	width: 850px;
+	width: 800px;
 	margin: 200px auto 0px auto;
 	-webkit-font-smoothing: antialiased;
 }
@@ -1010,9 +1010,18 @@ body {
 }
 
 .newsTitle {
-	padding: 0 10px 0 10px;
+	padding: 0 20px 0 10px;
 	box-sizing: border-box;
 	font-family: TTNormsPro-Medium;
+}
+
+.newsPreview {
+	font-family: TTNormsPro-Regular;
+	font-size: 16px;
+	line-height: 21px;
+	padding: 10px 0 10px 0;
+	width: 500px;
+	display: none;
 }
 
 .newsTitle_hover {

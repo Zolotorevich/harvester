@@ -55,7 +55,8 @@ function crawlInterfax(lastNews) {
 					newsArray.push({
 						'date':newsDate,
 						'title':newsTitle,
-						'link':newsLink
+						'link':newsLink,
+						'preview':''
 					});
 
 				});

@@ -27,8 +27,9 @@ foreach ($decoded[1] as $key => $value) {
 	$newsDate = mysqli_real_escape_string($connection, $value["date"]);
 	$newsTitle = mysqli_real_escape_string($connection, $value["title"]);
 	$newsLink = mysqli_real_escape_string($connection, $value["link"]);
+	$newsPreview = mysqli_real_escape_string($connection, $value["preview"]);
 
-	$sql .= "INSERT INTO ".$crawlerSpecs[0]['issue']." (date, title, link, crawler) VALUES ('$newsDate', '$newsTitle', '$newsLink','".$crawlerSpecs[0]['alias']."') ON DUPLICATE KEY UPDATE id=id;";
+	$sql .= "INSERT INTO ".$crawlerSpecs[0]['issue']." (date, title, link, preview, crawler) VALUES ('$newsDate', '$newsTitle', '$newsLink','$newsPreview','".$crawlerSpecs[0]['alias']."') ON DUPLICATE KEY UPDATE id=id;";
 
 	//update crawler last news
 	if ($key === array_key_first($decoded[1])) {
