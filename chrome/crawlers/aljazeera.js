@@ -6,16 +6,17 @@ function crawlAljazeera(lastNewsUrl) {
 	var i = 0;
 	newsArray = [];
 
-	//save original last news link
-	originallastNewsUrl = lastNewsUrl;
-	
+	//last news link
+	lastNewsFullUrl = lastNews[0].lastLink;
+
 	//Delete domain name
-	lastNewsUrl = lastNewsUrl.slice(25);
+	lastNewsShortUrl = lastNewsFullUrl.slice(25);
+
 
 	function findNews() {
 		setTimeout(function() {
 
-			if ($(`article a[href*="${lastNewsUrl}"]`).length > 0) {
+			if ($(`article a[href*="${lastNewsShortUrl}"]`).length > 0) {
 
 				//Found last news
 				logEvent('SEARCHING attempt №' + (i + 1) + ' SUCCESS');
@@ -32,13 +33,16 @@ function crawlAljazeera(lastNewsUrl) {
 					}
 
 					//check if it's last news
-					if (newsLink == originallastNewsUrl) {
+					if (newsLink == lastNewsFullUrl) {
 						//break the loop
 						return false;
 					}
 
 					//get news title
 					var newsTitle = $(this).find('span').text();
+
+					//get news preview
+					var preview = $(this).parent().next().find('p').html();
 
 					//get news time
 					var newsDate = harvesterDateObj.fullDateTime;
@@ -47,7 +51,8 @@ function crawlAljazeera(lastNewsUrl) {
 					newsArray.push({
 						'date':newsDate,
 						'title':newsTitle,
-						'link':newsLink
+						'link':newsLink,
+						'preview':preview
 					});
 
 				});

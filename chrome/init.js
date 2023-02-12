@@ -131,6 +131,8 @@ function harvester_sendData(newsArray) {
 
 	var finalArray = [{carwler:harvesterCrawler.alias}, newsArray];
 
+	console.log(finalArray);
+
 	$.ajax({
 		beforeSend: function(){
 			logEvent('SENDING DATA');
