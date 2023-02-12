@@ -9,9 +9,6 @@ var viewedNews = [];
 //issues
 var issues = ['home', 'foreignNews'];
 
-//CMD key
-var cmdKey = false;
-
 $(document).ready(function(){
 
 	//create dateObj
@@ -36,9 +33,10 @@ $(document).ready(function(){
 		var clickedIssue = $(this).attr('data-issue');
 		if (clickedIssue != dateObjMeta.issue) {
 			changeIssue(clickedIssue);
-			location.hash = '#' + clickedIssue;
 		}
 	});
+
+	$('#viewedSwitch').click(function(){ toggleViewed(); });
 
 });
 
@@ -46,9 +44,15 @@ function changeIssue(issueName) {
 	//save viewed
 	sendViewedNews();
 
+	//hide status messages
+	$('.listInfoMessage').hide();
+
 	//change menu items
 	$('#menuExportList li').removeClass('menuExportSelected');
 	$('#issue_' + issueName).addClass('menuExportSelected');
+
+	//change hash
+	location.hash = '#' + issueName;
 
 	//set global issue name
 	dateObjMeta.issue = issueName;
@@ -57,59 +61,6 @@ function changeIssue(issueName) {
 	loadNews();
 }
 
-function loadNews() {
-
-	//generate startDate
-	if (dateObj.weekends) {
-		startDate = dateObj.lastFriday + '1600';
-		// startDate = '202302121600';
-	} else {
-		startDate = dateObj.yesterday + '1600';
-	}
-	
-	$.ajax({
-		url: '/core/getNews.php',
-		method: 'get',
-		dataType: 'json',
-		data: {issue: dateObjMeta.issue, startDate: startDate},
-		success: function(data){
-			//console.log(data);
-			newsData = data;
-		}
-	}).done(function() {
-		displayNews();
-	});
-
-}
-
-function sendViewedNews() {
-
-	//check if any viewed news
-	if (viewedNews.length > 0) {
-
-		//prepare array
-		sendingData = [dateObjMeta.issue, viewedNews];
-
-		//send data
-		$.ajax({
-			url: '/core/updateViewed.php',
-			method: 'POST',
-			contentType: 'application/json',
-			dataType: 'json',
-			data: JSON.stringify(sendingData),
-			complete: function(data){
-				if (data.responseText == 'Records created') {
-					//clear array
-					viewedNews = [];
-				} else {
-					console.log(data);
-				}
-			}
-		});
-		
-	}
-
-}
 
 function displayNews() {
 
@@ -167,20 +118,66 @@ function displayNews() {
 
 		//move caret if any not viewed news
 		if ($('.newsContainer:not(.newsViewed)').length > 0) {
-			moveCarret($('.newsContainer:not(.newsViewed)').first().parent(), true);
+			moveCaret($('.newsContainer:not(.newsViewed)').first().parent(), true);
 		} else {
-			moveCarret($('.newsContainer').first().parent(), true);
+			moveCaret($('.newsContainer').first().parent(), true);
 		}
 		
 
 	} else {
 		//display no data message
-		$('#harvesterContainer').append('<div id="noData">NO DATA</div>');
+		$('#noData').show();
 
 		//update main display
 		mainDisplay('status','noData');
 	}
 
+}
+
+function toggleViewed() {
+	//check ccurrent state
+	var viewedIndicator = $('#viewedSwitch');
+
+	if (viewedIndicator.hasClass('menuIndicatorON')) {
+		//turn indicator OFF
+		viewedIndicator.removeClass('menuIndicatorON');
+
+		//check for no data
+		if ($('#noData').is(':visible')) {
+			return false;
+		}
+
+		//hide viewed
+		$('.newsViewed').hide();
+
+		//check if any left
+		if ($('.newsContainer:visible').length == 0) {
+			//show nothing to display
+			$('#nothingToDisplay').show();
+		} else {
+			//move caret
+			moveCaret($('.newsContainer:not(.newsViewed)').first().parent(), true);
+		}
+	
+	} else {
+		//turn indicator ON
+		viewedIndicator.addClass('menuIndicatorON');
+
+		//check for no data
+		if ($('#noData').is(':visible')) {
+			return false;
+		}
+
+		//hide nothing to display message
+		$('#nothingToDisplay').hide();
+
+		//show viewed
+		$('.newsViewed').show();
+
+		//scroll to caret
+		scrollToCaret($('.newsCaret'), false);
+
+	}
 }
 
 
@@ -197,7 +194,7 @@ function addNewsEvenets() {
 			event.preventDefault();
 		}
 		markPreviousAsViewed($(this));
-		moveCarret($(this));
+		moveCaret($(this));
 	});
 
 	$('.newsContainerLink').mouseover(function() {
@@ -221,7 +218,13 @@ function addNewsEvenets() {
 	
 }
 
-function moveCarret(element, scroll = false) {
+function moveCaret(element, scroll = false) {
+
+	//check if viewded indicator OFF
+	if (!$('#viewedSwitch').hasClass('menuIndicatorON')) {
+		//hide viewed
+		$('.newsViewed').hide();
+	}
 	
 	//add to viewed if needed
 	checkForViewed(element);
@@ -239,27 +242,30 @@ function moveCarret(element, scroll = false) {
 
 	//scroll to caret
 	if (scroll) {
-		//get caret position
-		caretPosition = element.offset().top;
-
-		//calc distance to top
-		distanceToTop = caretPosition - $(document).scrollTop();
-
-		//check if caret far away
-		if (distanceToTop > 300) {
-
-			//scroll with animation
-			$('html, body').animate({
-				scrollTop: caretPosition - 200
-			}, 200);
-			
-		} else {
-			//scroll without animation
-			$('html, body').scrollTop(caretPosition - 200);
-		}
-
+		scrollToCaret(element);
 	}
 
+}
+
+function scrollToCaret(element, anumation = true) {
+	//get caret position
+	caretPosition = element.offset().top;
+
+	//calc distance to top
+	distanceToTop = caretPosition - $(document).scrollTop();
+
+	//check if caret far away
+	if (distanceToTop > 300 && anumation) {
+
+		//scroll with animation
+		$('html, body').animate({
+			scrollTop: caretPosition - 200
+		}, 200);
+		
+	} else {
+		//scroll without animation
+		$('html, body').scrollTop(caretPosition - 200);
+	}
 }
 
 function checkForViewed(element) {
@@ -296,63 +302,3 @@ function markPreviousAsViewed(element) {
 	});
 }
 
-function keyboardShortcut(event) {
-
-	//DEBUG show keycode in console
-	//console.log(event.keyCode);
-
-	//Down arrow or S
-	if (event.keyCode == 40 || event.keyCode == 83) {
-		
-		//prevent page scroll
-		event.preventDefault();
-
-		//find next element
-		next = $('.newsCaret').parent().next();
-
-		//check if next exist
-		if (next.length > 0) {
-			moveCarret(next, true);
-		}
-
-	}
-
-	//Up arrow or W
-	if (event.keyCode == 38 || event.keyCode == 87) {
-		
-		//prevent page scroll
-		event.preventDefault();
-
-		//find prev element
-		prev = $('.newsCaret').parent().prev();
-
-		//check if next exist
-		if (prev.length > 0) {
-			moveCarret(prev, true);		
-		}
-	}
-
-	//Enter or Space
-	if (event.keyCode == 13 || event.keyCode == 32) {
-		//prevent page scroll
-		event.preventDefault();
-
-		//HOTFIX save caret position cuz chrome extention move it away
-		oldPosition = $('.newsCaret').parent().attr('data-id');
-
-		//open current caret
-		window.open($('.newsCaret').parent().attr('href'), '_blank');
-
-		setTimeout(function() { 
-			//HOTFIX regain position
-			moveCarret($(`a[data-id="${oldPosition}"]`));
-		}, 10);
-		
-	}
-
-	//CMD key
-	if (event.keyCode == 91 || event.keyCode == 93) {
-		cmdKey = true;
-	}
-	
-}
