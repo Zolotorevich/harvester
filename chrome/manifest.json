@@ -31,7 +31,8 @@
         "crawlers/interfax.js",
         "crawlers/aljazeera.js",
         "crawlers/nytimes.js",
-        "crawlers/tass.js"
+        "crawlers/tass.js",
+        "crawlers/guardian.js"
       ]
     }
   ]

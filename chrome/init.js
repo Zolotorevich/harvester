@@ -67,6 +67,7 @@ function create_harvesterCrawlerObj() {
 		harvesterCrawler.name = 'interfax';
 		harvesterCrawler.alias = 'interfax';
 	}
+
 	else if (url.includes('aljazeera.com')) {
 		harvesterCrawler.name = 'aljazeera';
 		harvesterCrawler.alias = 'aljazeera';
@@ -77,10 +78,51 @@ function create_harvesterCrawlerObj() {
 		harvesterCrawler.alias = 'nytimes';
 	}
 
-	else if (url.includes('tass.ru/mezhdunarodnaya-panorama')) {
-		harvesterCrawler.name = 'tass_world';
-		harvesterCrawler.alias = 'tass';
+	else if (url.includes('theguardian.com/world/africa')) {
+		harvesterCrawler.name = 'guardian_africa';
+		harvesterCrawler.alias = 'guardian';
 	}
+
+	else if (url.includes('theguardian.com/world/americas')) {
+		harvesterCrawler.name = 'guardian_americas';
+		harvesterCrawler.alias = 'guardian';
+	}
+
+	else if (url.includes('theguardian.com/world/asia-pacific')) {
+		harvesterCrawler.name = 'guardian_asia_pacific';
+		harvesterCrawler.alias = 'guardian';
+	}
+
+	else if (url.includes('theguardian.com/world/south-and-central-asia')) {
+		harvesterCrawler.name = 'guardian_asia_center';
+		harvesterCrawler.alias = 'guardian';
+	}
+
+	else if (url.includes('theguardian.com/world/middleeast')) {
+		harvesterCrawler.name = 'guardian_middleeast';
+		harvesterCrawler.alias = 'guardian';
+	}
+
+	else if (url.includes('theguardian.com/politics')) {
+		harvesterCrawler.name = 'guardian_uk';
+		harvesterCrawler.alias = 'guardian';
+	}
+
+	else if (url.includes('www.theguardian.com/us-news/us-politics')) {
+		harvesterCrawler.name = 'guardian_us';
+		harvesterCrawler.alias = 'guardian';
+	}
+
+	else if (url.includes('theguardian.com/australia-news')) {
+		harvesterCrawler.name = 'guardian_australia';
+		harvesterCrawler.alias = 'guardian';
+	}
+
+	else if (url.includes('theguardian.com/world/europe-news')) {
+		harvesterCrawler.name = 'guardian_europe';
+		harvesterCrawler.alias = 'guardian';
+	}
+
 
 }
 
@@ -124,12 +166,13 @@ function harvester_getLastNews(crawlerName) {
 		if (harvesterCrawler.alias == 'aljazeera') { crawlAljazeera(lastNews); }
 		else if (harvesterCrawler.alias == 'interfax') { crawlInterfax(lastNews); }
 		else if (harvesterCrawler.alias == 'nytimes') { crawlNytimes(lastNews); }
+		else if (harvesterCrawler.alias == 'guardian') { crawlGuardian(lastNews); }
 	});
 }
 
-function harvester_sendData(newsArray) {
+function harvester_sendData(newsArray, redirect = '') {
 
-	var finalArray = [{carwler:harvesterCrawler.alias}, newsArray];
+	var finalArray = [{carwler:harvesterCrawler.name}, newsArray];
 
 	console.log(finalArray);
 
@@ -148,7 +191,21 @@ function harvester_sendData(newsArray) {
 			logEvent('STATUS ' + data.statusText);
 			logEvent('RESPONCE ' + data.responseText);
 			console.log(data);
+
+			if (redirect != '') {
+				location.href = redirect;
+			}
 		}
 	});
 
+}
+
+//convert '2023-01-14T16:26:50-05:00' -> '202301141626' (MSK)
+function convertForeignTime(date) {
+	var moscowDate = new Date(date);
+	var newDate = moscowDate.toLocaleString('ru-RU', {timeZone: "Europe/Moscow"});
+
+	newDate = newDate.slice(6,10) + newDate.slice(3,5) + newDate.slice(0,2) + newDate.slice(12,14) + newDate.slice(15,17);
+
+	return newDate;
 }

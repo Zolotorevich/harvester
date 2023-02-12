@@ -1,4 +1,4 @@
-function crawlAljazeera(lastNewsUrl) {
+function crawlAljazeera(lastNews) {
 	logEvent('CRAWLING AlJazeera');
 
 	var delay = 5000; //in ms
@@ -11,7 +11,6 @@ function crawlAljazeera(lastNewsUrl) {
 
 	//Delete domain name
 	lastNewsShortUrl = lastNewsFullUrl.slice(25);
-
 
 	function findNews() {
 		setTimeout(function() {

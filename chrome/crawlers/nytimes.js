@@ -1,21 +1,21 @@
-function crawlNytimes(lastNewsUrl) {
+function crawlNytimes(lastNews) {
 	logEvent('CRAWLING New Yourk Times');
 
 	var delay = 5000; //in ms
 	var attempts = 10;
 	var i = 0;
 	newsArray = [];
-	
-	//save original last news link
-	originallastNewsUrl = lastNewsUrl;
+
+	//last news link
+	lastNewsFullUrl = lastNews[0].lastLink;
 
 	//Delete domain name
-	lastNewsUrl = lastNewsUrl.slice(23);
+	lastNewsShortUrl = lastNewsFullUrl.slice(23);
 
 	function findNews() {
 		setTimeout(function() {
 
-			if ($(`#stream-panel a[href*="${lastNewsUrl}"]`).length > 0) {
+			if ($(`#stream-panel a[href*="${lastNewsShortUrl}"]`).length > 0) {
 
 				//Found last news
 				logEvent('SEARCHING attempt №' + (i + 1) + ' SUCCESS');
@@ -34,6 +34,9 @@ function crawlNytimes(lastNewsUrl) {
 					//get news title
 					var newsTitle = $(this).text();
 
+					//get news preview
+					var preview = $(this).next().html();
+
 					//get news time
 					var newsDate = harvesterDateObj.fullDateTime;
 
@@ -41,11 +44,12 @@ function crawlNytimes(lastNewsUrl) {
 					newsArray.push({
 						'date':newsDate,
 						'title':newsTitle,
-						'link':newsLink
+						'link':newsLink,
+						'preview':preview
 					});
 
 					//check if it's last news
-					if (newsLink == originallastNewsUrl) {
+					if (newsLink == lastNewsFullUrl) {
 						//break the loop
 						return false;
 					}
@@ -66,6 +70,9 @@ function crawlNytimes(lastNewsUrl) {
 					//get news title
 					var newsTitle = $(this).text();
 
+					//get news preview
+					var preview = $(this).parent().nextAll('p').first().html();
+
 					//get news time
 					var newsDate = harvesterDateObj.fullDateTime;
 
@@ -73,7 +80,8 @@ function crawlNytimes(lastNewsUrl) {
 					newsArray.push({
 						'date':newsDate,
 						'title':newsTitle,
-						'link':newsLink
+						'link':newsLink,
+						'preview':preview
 					});
 				});
 

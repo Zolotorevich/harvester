@@ -1000,12 +1000,12 @@ body {
 }
 
 .newsTime {
-	width:68px;
+	width:64px;
 	text-align: right;
 	flex-shrink: 0;
 	color: var(--indicator-grey);
 	font-family: 'Duo';
-	font-size: 19px;
+	font-size: 17px;
 	line-height: 23px;
 }
 
@@ -1058,16 +1058,6 @@ body {
 
 .newsCaret img {
 	display:inline !important;
-}
-
-.caret_newsTime {
-	width:68px;
-	text-align: right;
-	flex-shrink: 0;
-	color: var(--display-grey);
-	font-family: 'Duo';
-	font-size: 19px;
-	line-height: 23px;
 }
 
 .caret_newsTitle {
