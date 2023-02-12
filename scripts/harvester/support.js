@@ -161,6 +161,7 @@ function mainDisplay(type,message) {
 
 	//add leading zero if number < 10 or <100
 	function addLeadingZero(number) {
+
 		if (number < 10) {
 			return '<span>00</span>' + number;
 		}

@@ -37,10 +37,6 @@ foreach ($decoded[1] as $key => $value) {
 
 }
 
-//update lastNews
-//$lastNewsLink = mysqli_real_escape_string($connection, $decoded[0]["link"]);
-//$sql .= "UPDATE lastnews SET lastNews = '$lastNewsLink' WHERE crawler = '".$crawlerName."';";
-
 //preform sql
 if ($connection->multi_query($sql) === TRUE) {
 	echo "Records created";
