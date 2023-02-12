@@ -6,6 +6,9 @@ const dateObjMeta = new Object();
 var newsData;
 var viewedNews = [];
 
+//issues
+var issues = ['home', 'foreignNews'];
+
 //CMD key
 var cmdKey = false;
 
@@ -14,16 +17,34 @@ $(document).ready(function(){
 	//create dateObj
 	createDateObject();
 
-	//TODO set issue based on hash
-	dateObjMeta.issue = 'home';
-
-	//load news
-	loadNews();
+	//get hash
+	var hash = window.location.hash;
+	hash = hash.slice(1,hash.length);
+	
+	//check if hash has issue
+	if (issues.includes(hash)) {
+		changeIssue(hash);
+	} else {
+		changeIssue('home');
+	}
 
 	//set timer for update viewed news
 	setInterval(sendViewedNews,9000);
 
 });
+
+function changeIssue(issueName) {
+	//save viewed
+	sendViewedNews();
+
+	//TODO change menu items
+
+	//set global issue name
+	dateObjMeta.issue = issueName;
+
+	//load news
+	loadNews();
+}
 
 function loadNews() {
 
@@ -41,8 +62,8 @@ function loadNews() {
 		dataType: 'json',
 		data: {issue: dateObjMeta.issue, startDate: startDate},
 		success: function(data){
+			console.log(data);
 			newsData = data;
-			console.log(newsData);
 		}
 	}).done(function() {
 		displayNews();
@@ -133,8 +154,13 @@ function displayNews() {
 		//add events
 		addNewsEvenets();
 
-		//move caret
-		moveCarret($('.newsContainer:not(.newsViewed)').first().parent(), true);
+		//move caret if any not viewed news
+		if ($('.newsContainer:not(.newsViewed)').length > 0) {
+			moveCarret($('.newsContainer:not(.newsViewed)').first().parent(), true);
+		} else {
+			moveCarret($('.newsContainer').first().parent(), true);
+		}
+		
 
 	} else {
 		//display no data message
