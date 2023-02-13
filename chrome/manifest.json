@@ -32,7 +32,8 @@
         "crawlers/aljazeera.js",
         "crawlers/nytimes.js",
         "crawlers/tass.js",
-        "crawlers/guardian.js"
+        "crawlers/guardian.js",
+        "crawlers/reuters.js"
       ]
     }
   ]

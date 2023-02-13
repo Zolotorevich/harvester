@@ -1,85 +1,93 @@
-function crawlTass() {
+function crawlTass(lastNews) {
 	logEvent('CRAWLING TASS');
 
 	var delay = 2000; //in ms
-	var attempts = 50;
+	var attempts = 35;
 	var i = 0;
 	newsArray = [];
+	lastNewsFound = false;
 
-	//TODO calculate search date based on cerrent day
-	searchDate = 'февраля, ';
-	
+	//get date of last news
+	lastNewsDate = lastNews[0].lastDate;
 
 	function findNews() {
 		setTimeout(function() {
 
-			check16 = $(`#infinite_listing div:contains("${searchDate + '16'}")`).length > 0;
-			check15 = $(`#infinite_listing div:contains("${searchDate + '15'}")`).length > 0;
-			check14 = $(`#infinite_listing div:contains("${searchDate + '14'}")`).length > 0;
+			//clear results array
+			newsArray = [];
 
-			if (check16 && check15 && check14) {
+			//create results array
+			$('#infinite_listing a').each(function() {
+				//get news link
+				var newsLink = $(this).attr('href');
 
-				//Found last news
-				logEvent('SEARCHING attempt №' + (i + 1) + ' SUCCESS');
+				//check if link releative
+				if (!newsLink.includes('https://')) {
+					//add domain name
+					newsLink = 'https://www.tass.ru' + newsLink;
+				}
 
-				//create results array
-				$('#infinite_listing a').each(function() {
-					//get news link
-					var newsLink = $(this).attr('href');
+				//get news title
+				var newsTitle = $(this).find('span').text();
 
-					//check if link releative
-					if (!newsLink.includes('https://')) {
-						//add domain name
-						newsLink = 'https://www.tass.ru' + newsLink;
-					}
+				//get date
+				var rawNewsDate = $(this).find('div[class*="font_weight_black"]').first().text();
 
-					//get news title
-					var newsTitle = $(this).find('span').text();
+				//convert date
+				newsDate = convertTassDate(rawNewsDate);
 
-					//get date
-					var rawNewsDate = $(this).find('div[class*="font_weight_black"]').first().text();
-
-					newsDate = convertTassDate(rawNewsDate);
-
-					//save to array
-					newsArray.push({
-						'date':newsDate,
-						'title':newsTitle,
-						'link':newsLink
-					});
-
+				//save to array
+				newsArray.push({
+					'date':newsDate,
+					'title':newsTitle,
+					'link':newsLink,
+					'preview':''
 				});
 
-				console.log(newsArray);
+				//check if news older than last one
+				if (lastNewsDate > newsDate) {
+					//check if news not edited
+					isEdited = $(this).find('div:contains("обновлено")').length > 0;
 
+					if (!isEdited) {
+						lastNewsFound = true;
+						return true;
+					}
+				}
+
+			});
+
+			//check if last news found
+			if (lastNewsFound) {
 				//send data
 				if (newsArray.length > 0) {
+					console.log(newsArray);
 					harvester_sendData(newsArray);
+					return true;
 				} else {
 					logEvent('NOTHING TO SEND no new news');
+					return false;
 				}
-				
-			} else {
+			}
 
-				//Last news not found
-				logEvent('SEARCHING attempt №' + (i + 1) + ' NOT FOUND');
+			//Last news not found
+			logEvent('SEARCHING attempt №' + (i + 1) + ' NOT FOUND');
 
-				//find load more button
-				loadButton = $('button:contains("Загрузить больше результатов")');
+			//find load more button
+			loadButton = $('button:contains("Загрузить больше результатов")');
 
-				//press more news button if exist
-				if (loadButton.length > 0) {
-					loadButton.click();
-				}
+			//press more news button if exist
+			if (loadButton.length > 0) {
+				loadButton.click();
+			}
 
-				//scroll to buttom
-				$("html, body").animate({ scrollTop: $(document).height() }, 500);
-				
-				//next loop
-				i++;
-				if (i < attempts) {
-					findNews();
-				}
+			//scroll to buttom
+			$("html, body").animate({ scrollTop: $(document).height() }, 500);
+			
+			//next loop
+			i++;
+			if (i < attempts) {
+				findNews();
 			}
 
 		}, delay)
@@ -102,7 +110,7 @@ function convertTassDate(rawDate) {
 		//get number of minutes
 		numOfMinutes = parseInt(rawDate.slice(0,rawDate.indexOf(' ')));
   
-		//Set Object yesterday
+		//Set Date Object
 		const newDate = new Date();
 		newDate.setMinutes(harvesterDateObj.minutes - numOfMinutes);
   
@@ -161,12 +169,30 @@ function convertTassDate(rawDate) {
 		//month = monthsArray.indexOf(month);
 
 		//HOTFIX
-		if (rawDate.includes('февраля')) {
+		if (rawDate.includes('января')) {
+			month = 1;
+		} else if (rawDate.includes('февраля')) {
 			month = 2;
 		} else if (rawDate.includes('марта')) {
 			month = 3;
 		} else if (rawDate.includes('апреля')) {
 			month = 4;
+		} else if (rawDate.includes('мая')) {
+			month = 5;
+		} else if (rawDate.includes('июня')) {
+			month = 6;
+		} else if (rawDate.includes('июля')) {
+			month = 7;
+		} else if (rawDate.includes('августа')) {
+			month = 8;
+		} else if (rawDate.includes('сентября')) {
+			month = 9;
+		} else if (rawDate.includes('октября')) {
+			month = 10;
+		} else if (rawDate.includes('ноября')) {
+			month = 11;
+		} else if (rawDate.includes('декабря')) {
+			month = 12;
 		}
 
 		return harvesterDateObj.year + addLeadingZero(month) + addLeadingZero(day) + time.replace(':','');

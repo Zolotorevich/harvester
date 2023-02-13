@@ -13,7 +13,12 @@ $(document).ready(function(){
 	create_harvesterCrawlerObj();
 	
 	//run crawler
-	harvester_getLastNews(harvesterCrawler.name);
+	if (harvesterCrawler.name != 'none') {
+		harvester_getLastNews(harvesterCrawler.name);	
+	} else {
+		logEvent('NO CRAWLER for this page');
+	}
+	
 
 });
 
@@ -68,6 +73,26 @@ function create_harvesterCrawlerObj() {
 		harvesterCrawler.alias = 'interfax';
 	}
 
+	else if (url.includes('tass.ru/mezhdunarodnaya-panorama')) {
+		harvesterCrawler.name = 'tass_world';
+		harvesterCrawler.alias = 'tass';
+	}
+
+	else if (url.includes('tass.ru/politika')) {
+		harvesterCrawler.name = 'tass_politics';
+		harvesterCrawler.alias = 'tass';
+	}
+
+	else if (url.includes('tass.ru/obschestvo')) {
+		harvesterCrawler.name = 'tass_society';
+		harvesterCrawler.alias = 'tass';
+	}
+
+	else if (url.includes('tass.ru/ekonomika')) {
+		harvesterCrawler.name = 'tass_economy';
+		harvesterCrawler.alias = 'tass';
+	}
+
 	else if (url.includes('aljazeera.com')) {
 		harvesterCrawler.name = 'aljazeera';
 		harvesterCrawler.alias = 'aljazeera';
@@ -108,7 +133,7 @@ function create_harvesterCrawlerObj() {
 		harvesterCrawler.alias = 'guardian';
 	}
 
-	else if (url.includes('www.theguardian.com/us-news/us-politics')) {
+	else if (url.includes('theguardian.com/us-news/us-politics')) {
 		harvesterCrawler.name = 'guardian_us';
 		harvesterCrawler.alias = 'guardian';
 	}
@@ -121,6 +146,16 @@ function create_harvesterCrawlerObj() {
 	else if (url.includes('theguardian.com/world/europe-news')) {
 		harvesterCrawler.name = 'guardian_europe';
 		harvesterCrawler.alias = 'guardian';
+	}
+
+	else if (url.includes('reuters.com/myview/all/all-entities')) {
+		harvesterCrawler.name = 'reuters';
+		harvesterCrawler.alias = 'reuters';
+	}
+
+	else {
+		harvesterCrawler.name = 'none';
+		harvesterCrawler.alias = 'none';
 	}
 
 
@@ -164,9 +199,11 @@ function harvester_getLastNews(crawlerName) {
 		lastNews = JSON.parse(data);
 
 		if (harvesterCrawler.alias == 'aljazeera') { crawlAljazeera(lastNews); }
+		else if (harvesterCrawler.alias == 'tass') { crawlTass(lastNews); }
 		else if (harvesterCrawler.alias == 'interfax') { crawlInterfax(lastNews); }
 		else if (harvesterCrawler.alias == 'nytimes') { crawlNytimes(lastNews); }
 		else if (harvesterCrawler.alias == 'guardian') { crawlGuardian(lastNews); }
+		else if (harvesterCrawler.alias == 'reuters') { crawlReuters(lastNews); }
 	});
 }
 
