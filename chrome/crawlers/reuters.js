@@ -8,21 +8,7 @@ function crawlReuters(lastNews) {
 
 	//get date of last news
 	lastNewsDate = lastNews[0].lastDate;
-
-	//check if news older than last one found
-	// $('a h5').each(function() {
-	// 	console.log($(this).html());
-	// });
-
-	// //console.log('LAST NEWS TIME ' + convertReutersDate($('li[class*="stories-feed"]').last().find('a span').html()));
-
-	// $('li[class*="stories-feed"]').each(function() {
-	// 	var timeTest = $(this).find('a span').html();
-	// 	console.log(timeTest + ' : ' + convertReutersDate(timeTest));
-	// });
-
 	
-
 	function findNews() {
 		setTimeout(function() {
 
@@ -74,7 +60,6 @@ function crawlReuters(lastNews) {
 				}
 			}
 			
-
 			//Last news not found
 			logEvent('SEARCHING attempt №' + (i + 1) + ' NOT FOUND');
 
@@ -191,7 +176,7 @@ function convertReutersDate(rawDate) {
 		monthsArray = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 		newMonth = monthsArray.indexOf(monthName) + 1;
 
-		return harvesterDateObj.year + addLeadingZero(newMonth) + addLeadingZero(newDay) + '0000';
+		return harvesterDateObj.year + addLeadingZero(newMonth) + addLeadingZero(newDay) + '2359';
 	}
 
 
