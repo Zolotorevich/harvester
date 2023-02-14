@@ -65,7 +65,7 @@ function changeIssue(issueName) {
 function displayNews() {
 
 	//Clear view
-	$('#harvesterContainer').html('');
+	$('#harvesterContainer a').empty();
 
 	//total news
 	dateObjMeta.total = newsData.length;
@@ -189,14 +189,37 @@ function updateDisplay() {
 }
 
 function addNewsEvenets() {
+
+	//clear events
+	$('.newsContainerLink').off();
+	$('body').off();
+
+	//mouse left click on news
 	$('.newsContainerLink').click(function(event) {
-		if(event.which == 1 && !cmdKey) {
-			event.preventDefault();
+		if(event.which == 1) {
+
+			console.log('CMD ' + cmdKey);
+
+			//TODO prevent if !CMD
+			if (!cmdKey) {
+				event.preventDefault();
+			}
+			
+			
+			markPreviousAsViewed($(this));
+			moveCaret($(this));
 		}
-		markPreviousAsViewed($(this));
-		moveCaret($(this));
 	});
 
+	//mouse middle click on news
+	document.querySelectorAll('.newsContainerLink').forEach(box => {
+		box.onauxclick = () => {
+			markPreviousAsViewed($(box));
+			moveCaret($(box));
+		  };
+	});
+
+	//mouse over news
 	$('.newsContainerLink').mouseover(function() {
 		$(this).find('.sourceIcon img').show();
 		$(this).find('.newsTitle span').addClass('newsTitle_hover');
@@ -208,6 +231,8 @@ function addNewsEvenets() {
 
 	//keyboard hotkeys
 	$('body').keydown(function( event ) { keyboardShortcut(event); });
+
+	//BUG CMD key stuck
 	$('body').keyup(function( event ) { 
 		//CMD key
 		if (event.keyCode == 91 || event.keyCode == 93) {
