@@ -199,7 +199,7 @@ function convertTassDate(rawDate) {
 		
 	} catch (error) {
 
-		return harvesterDateObj.year + '12312359';
+		return harvesterDateObj.fullDateTime;
 		
 	}
 	

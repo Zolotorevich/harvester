@@ -33,7 +33,8 @@
         "crawlers/nytimes.js",
         "crawlers/tass.js",
         "crawlers/guardian.js",
-        "crawlers/reuters.js"
+        "crawlers/reuters.js",
+        "crawlers/hq.js"
       ]
     }
   ]

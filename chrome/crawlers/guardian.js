@@ -85,6 +85,8 @@ function crawlGuardian(lastNews) {
 		newLocation = url + '?page=2';
 	}
 
+	console.log(newsArray);
+
 	//found last news or it's last page
 	if (lastNewsFound || pageNumber >= 3) {
 		//send data

@@ -245,6 +245,7 @@ function harvester_sendData(newsArray, redirect = '') {
 			if (redirect != '') {
 				location.href = redirect;
 			}
+
 		}
 	});
 
