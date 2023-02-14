@@ -195,7 +195,13 @@ function convertTassDate(rawDate) {
 			month = 12;
 		}
 
-		return harvesterDateObj.year + addLeadingZero(month) + addLeadingZero(day) + time.replace(':','');
+		finaldate = harvesterDateObj.year + addLeadingZero(month) + addLeadingZero(day) + time.replace(':','');
+
+		if (isNaN(finaldate)) {
+			return harvesterDateObj.fullDateTime;
+		}
+
+		return finaldate;
 		
 	} catch (error) {
 
