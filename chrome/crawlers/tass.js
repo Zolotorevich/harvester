@@ -60,14 +60,8 @@ function crawlTass(lastNews) {
 			//check if last news found
 			if (lastNewsFound) {
 				//send data
-				if (newsArray.length > 0) {
-					console.log(newsArray);
-					harvester_sendData(newsArray);
-					return true;
-				} else {
-					logEvent('NOTHING TO SEND no new news');
-					return false;
-				}
+				harvester_sendData(newsArray);
+				return true;
 			}
 
 			//Last news not found

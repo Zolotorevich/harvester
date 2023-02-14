@@ -72,36 +72,27 @@ function crawlGuardian(lastNews) {
 
 	console.log(newsArray);
 
-	//check if any news news
-	if (newsArray.length > 0) {
 
-		//get page number
-		var url = window.location.href;
+	//get page number
+	var url = window.location.href;
 
-		if (url.includes('page=')) {
-			pageNumber = url.slice(-1);
-			newLocation = url.slice(0,url.length-1) + (parseInt(pageNumber) + 1);
+	if (url.includes('page=')) {
+		pageNumber = url.slice(-1);
+		newLocation = url.slice(0,url.length-1) + (parseInt(pageNumber) + 1);
 
-		} else {
-			pageNumber = 1;
-			newLocation = url + '?page=2';
-		}
-
-		//found last news or it's last page
-		if (lastNewsFound || pageNumber >= 3) {
-			//send data
-			harvester_sendData(newsArray);
-		} else {
-			//send data and go to next page
-			harvester_sendData(newsArray,newLocation);
-		}
-
-		//harvester_sendData(newsArray);
 	} else {
-		logEvent('NOTHING TO SEND no new news');
+		pageNumber = 1;
+		newLocation = url + '?page=2';
 	}
 
-	
+	//found last news or it's last page
+	if (lastNewsFound || pageNumber >= 3) {
+		//send data
+		harvester_sendData(newsArray);
+	} else {
+		//send data and go to next page
+		harvester_sendData(newsArray,newLocation);
+	}
 
 }
 

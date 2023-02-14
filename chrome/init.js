@@ -209,6 +209,13 @@ function harvester_getLastNews(crawlerName) {
 
 function harvester_sendData(newsArray, redirect = '') {
 
+	//check if any new news
+	if (newsArray.length == 0) {
+		crawlerFinish(newsArray.length);
+		logEvent('NOTHING TO SEND no new news');
+		return false;
+	}
+
 	var finalArray = [{carwler:harvesterCrawler.name}, newsArray];
 
 	console.log(finalArray);
@@ -229,6 +236,12 @@ function harvester_sendData(newsArray, redirect = '') {
 			logEvent('RESPONCE ' + data.responseText);
 			console.log(data);
 
+			if (data.responseText == 'Records created') {
+				crawlerFinish(newsArray.length);
+			} else {
+				crawlerFinish(newsArray.length, 'fail');
+			}
+
 			if (redirect != '') {
 				location.href = redirect;
 			}
@@ -245,4 +258,20 @@ function convertForeignTime(date) {
 	newDate = newDate.slice(6,10) + newDate.slice(3,5) + newDate.slice(0,2) + newDate.slice(12,14) + newDate.slice(15,17);
 
 	return newDate;
+}
+
+function crawlerFinish(message, type = 'normal') {
+
+	//messgae bakc color
+	if (type == 'normal') {
+		backcolor = '#10b11b';
+	} else {
+		backcolor = '#cd2424';
+	}
+
+	//create message div
+	html = '<div style="position:fixed; top:20px; left:20px; z-index:99999999; width:300px; height:150px; background-color:' + backcolor + '; font-size:80px; text-align:center;">' + message + '</div>'
+
+	$('body').append(html);
+	
 }

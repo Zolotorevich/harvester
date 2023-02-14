@@ -88,11 +88,7 @@ function crawlNytimes(lastNews) {
 				console.log(newsArray);
 
 				//send data
-				if (newsArray.length > 0) {
-					harvester_sendData(newsArray);
-				} else {
-					logEvent('NOTHING TO SEND no new news');
-				}
+				harvester_sendData(newsArray);
 				
 			} else {
 
