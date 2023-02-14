@@ -2,7 +2,7 @@ function crawlNytimes(lastNews) {
 	logEvent('CRAWLING New Yourk Times');
 
 	var delay = 5000; //in ms
-	var attempts = 10;
+	var attempts = 15;
 	var i = 0;
 	newsArray = [];
 
@@ -96,7 +96,7 @@ function crawlNytimes(lastNews) {
 				logEvent('SEARCHING attempt №' + (i + 1) + ' NOT FOUND');
 
 				//scroll to bottom
-				$("html, body").animate({ scrollTop: ($(document).height() - 800) }, 2000);
+				$("html, body").animate({ scrollTop: ($(document).height() - 300) }, 2000);
 
 				//scroll to top
 				$("html, body").animate({ scrollTop: 0 }, 2000);

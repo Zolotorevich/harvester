@@ -198,16 +198,17 @@ function addNewsEvenets() {
 	$('.newsContainerLink').click(function(event) {
 		if(event.which == 1) {
 
-			console.log('CMD ' + cmdKey);
-
-			//TODO prevent if !CMD
-			if (!cmdKey) {
-				event.preventDefault();
-			}
-			
-			
 			markPreviousAsViewed($(this));
 			moveCaret($(this));
+
+			//if CMD pressed, make it false cuz keyup event will fire in other window
+			if (cmdKey) {
+				cmdKey = false;
+			} else {
+				//prevent if CMD key not pressed
+				event.preventDefault();
+			}
+
 		}
 	});
 
@@ -232,7 +233,7 @@ function addNewsEvenets() {
 	//keyboard hotkeys
 	$('body').keydown(function( event ) { keyboardShortcut(event); });
 
-	//BUG CMD key stuck
+	//CMD key stuck
 	$('body').keyup(function( event ) { 
 		//CMD key
 		if (event.keyCode == 91 || event.keyCode == 93) {

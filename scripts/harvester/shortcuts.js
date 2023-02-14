@@ -1,4 +1,3 @@
-//BUG CMD key stuck
 //CMD key
 var cmdKey = false;
 
@@ -53,12 +52,9 @@ function keyboardShortcut(event) {
 			//HOTFIX regain position
 			moveCaret($(`a[data-id="${oldPosition}"]`));
 		}, 10);
-		
-		console.log('enter or space');
 
 	}
 
-	//BUG CMD key stuck
 	//CMD key
 	if (event.keyCode == 91 || event.keyCode == 93) {
 		cmdKey = true;
