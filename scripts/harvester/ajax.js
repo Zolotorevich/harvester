@@ -31,6 +31,9 @@ function sendViewedNews() {
 		//prepare array
 		sendingData = [dateObjMeta.issue, viewedNews];
 
+		//clear viewed array
+		viewedNews = [];
+
 		//send data
 		$.ajax({
 			url: '/core/updateViewed.php',
@@ -39,10 +42,11 @@ function sendViewedNews() {
 			dataType: 'json',
 			data: JSON.stringify(sendingData),
 			complete: function(data){
-				if (data.responseText == 'Records created') {
-					//clear array
-					viewedNews = [];
-				} else {
+				if (data.responseText != 'Records created') {
+					//restore array
+					viewedNews = viewedNews.concat(sendingData[1]);
+					
+					//show error
 					console.log(data);
 				}
 			}
