@@ -2,7 +2,7 @@ function crawlTass(lastNews) {
 	logEvent('CRAWLING TASS');
 
 	var delay = 2000; //in ms
-	var attempts = 35;
+	var attempts = 50;
 	var i = 0;
 	newsArray = [];
 	lastNewsFound = false;
