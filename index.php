@@ -24,6 +24,7 @@
 		<ul id="menuExportList">
 			<li id="issue_home" data-issue="home" class="menuExportKey1">Home</li>
 			<li id="issue_foreignNews" data-issue="foreignNews" class="menuExportKey2">Foreign</li>
+			<li id="issue_ntab" data-issue="ntab" class="menuExportKey3">ntab</li>
 		</ul>
 		<div class="menuHLine"></div>
 		<ul id="menuIndicatorsList">

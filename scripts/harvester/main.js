@@ -7,7 +7,7 @@ var newsData;
 var viewedNews = [];
 
 //issues
-var issues = ['home', 'foreignNews'];
+var issues = ['home', 'foreignNews', 'ntab'];
 
 $(document).ready(function(){
 
