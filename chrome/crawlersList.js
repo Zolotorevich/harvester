@@ -142,6 +142,18 @@ let crawlersList = [
 		alias: 'tomshardware',
 		url: 'tomshardware\.com\/news$|tomshardware\.com\/news\/page\/',
 		crawlerFunction: crawlTomshardware
+	},
+	{
+		name: 'reuters_tech',
+		alias: 'reuters',
+		url: 'reuters\.com\/technology\/$',
+		crawlerFunction: crawlReutersSection
+	},
+	{
+		name: 'reuters_telecom',
+		alias: 'reuters',
+		url: 'reuters\.com\/business\/media\-telecom\/$',
+		crawlerFunction: crawlReutersSection
 	}
 ];
 

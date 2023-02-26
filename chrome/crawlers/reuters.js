@@ -1,7 +1,7 @@
 function crawlReuters(lastNews) {
 	logEvent('CRAWLING Reuters');
 
-	var delay = 2000; //in ms
+	var delay = 2000;
 	var attempts = 35;
 	var i = 0;
 	newsArray = [];
@@ -50,7 +50,8 @@ function crawlReuters(lastNews) {
 				});
 
 				//send data
-				harvester_sendData(newsArray);
+				console.log(newsArray);
+				//harvester_sendData(newsArray);
 				return true;
 
 			}
@@ -79,6 +80,137 @@ function crawlReuters(lastNews) {
 	findNews();
 
 }
+
+function crawlReutersSection(lastNews) {
+	logEvent('CRAWLING Reuters Section');
+
+	var delay = 2000;
+	var attempts = 35;
+	var i = 0;
+	newsArray = [];
+
+	//last news link
+	lastNewsFullUrl = lastNews[0].lastLink;
+
+	//Delete domain name
+	lastNewsShortUrl = lastNewsFullUrl.slice(lastNewsFullUrl.indexOf('.com') + 4);
+
+	//last news detected
+	lastNewsFound = false;
+	
+	function findNews() {
+		setTimeout(function() {
+
+			//check if last news found
+			if ($(`a[href*="${lastNewsShortUrl}"]`).length > 0) {
+				//parse hero
+				var hero = $('li[class*="story-collection__hero"]');
+				var heroLink = hero.find('a[data-testid="Heading"]').attr('href');
+
+				//check if link releative
+				if (!heroLink.includes('https://')) {
+					//add domain name
+					heroLink = 'https://www.reuters.com' + heroLink;
+				}
+
+				var heroTitle = hero.find('a[data-testid="Heading"] span').first().text();
+				var heroPreview = hero.find('p[data-testid="Body"]').text();
+
+				newsArray.push({
+					'date':harvesterDateObj.fullDateTime,
+					'title':heroTitle,
+					'link':heroLink,
+					'preview':heroPreview
+				});
+
+				//parse news with images
+				$('div[data-testid="MediaStoryCard"]:not(div[class*="media-story-card__hero"])').each(function() {
+					//get news link
+					var newsLink = $(this).find('a[data-testid="Heading"]').attr('href');
+
+					//check if link releative
+					if (!newsLink.includes('https://')) {
+						//add domain name
+						newsLink = 'https://www.reuters.com' + newsLink;
+					}
+
+					//get news title
+					var newsTitle = $(this).find('a[data-testid="Heading"] span').first().text();
+
+					//convert date
+					newsDate = convertForeignTime($(this).find('time').attr('datetime'));
+
+					//save to array
+					newsArray.push({
+						'date':newsDate,
+						'title':newsTitle,
+						'link':newsLink,
+						'preview':''
+					});
+
+				});
+
+				//parse news with preview
+				$('div[data-testid="TextStoryCard"]:not(div[class*="text-story-card__hero"])').each(function() {
+					//get news link
+					var newsLink = $(this).find('a[data-testid="Heading"]').attr('href');
+
+					//check if link releative
+					if (!newsLink.includes('https://')) {
+						//add domain name
+						newsLink = 'https://www.reuters.com' + newsLink;
+					}
+
+					//get news title
+					var newsTitle = $(this).find('a[data-testid="Heading"]').text();
+
+					//get preview
+					newsPreview = $(this).find('p[data-testid="Body"]').text();
+
+					//convert date
+					newsDate = convertForeignTime($(this).find('time').attr('datetime'));
+
+					//save to array
+					newsArray.push({
+						'date':newsDate,
+						'title':newsTitle,
+						'link':newsLink,
+						'preview':newsPreview
+					});
+
+				});
+
+				//send data
+				harvester_sendData(newsArray);
+				return true;
+
+			}
+			
+			//Last news not found
+			logEvent('SEARCHING attempt №' + (i + 1) + ' NOT FOUND');
+
+			//find load more button
+			loadButton = $('button:contains("Load more articles")');
+
+			//press more news button if exist
+			if (loadButton.length > 0) {
+				loadButton.click();
+			}
+			
+			//next loop
+			i++;
+			if (i < attempts) {
+				findNews();
+			}
+
+		}, delay)
+	}
+
+	//launch crawler
+	findNews();
+
+}
+
 
 function convertReutersDate(rawDate) {
 
