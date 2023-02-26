@@ -12,6 +12,8 @@ function crawl3dnews(lastNews) {
 	//last news detected
 	lastNewsFound = false;
 
+	return true;
+
 	//create results array
 	$('section h3').each(function() {
 		//get news link
