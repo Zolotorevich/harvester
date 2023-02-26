@@ -13,14 +13,14 @@ function crawlXakep(lastNews) {
 	lastNewsFound = false;
 
 	//create results array
-	$('#section-content .article-entry:not(.newsAllFeedHideItem)').each(function() {
+	$('.block-article-content-wrapper').each(function() {
 		//get news link
-		var newsLink = $(this).find('a.entry-header').attr('href');
+		var newsLink = $(this).find('h3 a').attr('href');
 
 		//check if link releative
 		if (!newsLink.includes('https://')) {
 			//add domain name
-			newsLink = 'https://3dnews.ru' + newsLink;
+			newsLink = 'https://xakep.ru' + newsLink;
 		}
 
 		//check if it's last news
@@ -32,17 +32,14 @@ function crawlXakep(lastNews) {
 		}
 
 		//get news title
-		var newsTitle = $(this).find('h1').text();
+		var newsTitle = $(this).find('h3 span').text();
 
 		//get news preview
 		var preview = $(this).find('p').text();
 
-		//get news time
-		var newsDate = $(this).find('span.entry-date').text();
-
 		//save to array
 		newsArray.push({
-			'date':convertRusTime(newsDate),
+			'date':convertUrlToDate(newsLink),
 			'title':newsTitle,
 			'link':newsLink,
 			'preview':preview
@@ -50,19 +47,15 @@ function crawlXakep(lastNews) {
 
 	});
 
-
-	console.log(newsArray);
-	return false;
-
 	//get page number
 	var url = window.location.href;
 
-	if (url.includes('page-')) {
-		pageNumber = url.slice(28,29);
-		newLocation = url.slice(0,28) + (parseInt(pageNumber) + 1) + '.html';
+	if (url.includes('/page/')) {
+		pageNumber = url.slice(-2,-1);
+		newLocation = url.slice(0,36) + (parseInt(pageNumber) + 1) + '/';
 	} else {
 		pageNumber = 1;
-		newLocation = url + '/page-2.html';
+		newLocation = url + 'page/2/';
 	}
 
 	//found last news or it's last page
@@ -72,6 +65,12 @@ function crawlXakep(lastNews) {
 	} else {
 		//send data and go to next page
 		harvester_sendData(newsArray,newLocation);
+
+	}
+
+	//convert 'https://xakep.ru/2023/02/14/' -> '20230214' + current time
+	function convertUrlToDate(date) {
+		return date.slice(17,21) + date.slice(22,24) + date.slice(25,27) + harvesterDateObj.time;
 	}
 
 }

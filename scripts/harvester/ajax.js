@@ -3,7 +3,7 @@ function loadNews() {
 	//generate startDate
 	if (dateObj.weekends) {
 		startDate = dateObj.lastFriday + '1600';
-		// startDate = '202302121600';
+		//startDate = '202302121600';
 	} else {
 		startDate = dateObj.yesterday + '1600';
 	}
