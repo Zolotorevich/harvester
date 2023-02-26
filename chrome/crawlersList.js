@@ -44,55 +44,55 @@ let crawlersList = [
 	{
 		name: 'guardian_africa',
 		alias: 'guardian',
-		url: 'theguardian\.com\/world\/africa$|theguardian\.com\/world\/africa\?page=\d$',
+		url: 'theguardian\.com\/world\/africa[$|\?page=\d$]',
 		crawlerFunction: crawlGuardian
 	},
 	{
 		name: 'guardian_americas',
 		alias: 'guardian',
-		url: 'theguardian\.com\/world\/americas$|theguardian\.com\/world\/americas\?page=\d$',
+		url: 'theguardian\.com\/world\/americas[$|\?page=\d$]',
 		crawlerFunction: crawlGuardian
 	},
 	{
 		name: 'guardian_asia_pacific',
 		alias: 'guardian',
-		url: 'theguardian.com\/world\/asia\-pacific$|theguardian.com\/world\/asia\-pacific\?page=\d$',
+		url: 'theguardian.com\/world\/asia\-pacific[$|\?page=\d$]',
 		crawlerFunction: crawlGuardian
 	},
 	{
 		name: 'guardian_asia_center',
 		alias: 'guardian',
-		url: 'theguardian\.com\/world\/south\-and\-central\-asia$|theguardian\.com\/world\/south\-and\-central\-asia\?page=\d$',
+		url: 'theguardian\.com\/world\/south\-and\-central\-asia[$|\?page=\d$]',
 		crawlerFunction: crawlGuardian
 	},
 	{
 		name: 'guardian_middleeast',
 		alias: 'guardian',
-		url: 'theguardian\.com\/world\/middleeast$|theguardian\.com\/world\/middleeast\?page=\d$',
+		url: 'theguardian\.com\/world\/middleeast[$|\?page=\d$]',
 		crawlerFunction: crawlGuardian
 	},
 	{
 		name: 'guardian_uk',
 		alias: 'guardian',
-		url: 'theguardian\.com\/politics$|theguardian\.com\/politics\?page=\d$',
+		url: 'theguardian\.com\/politics[$|\?page=\d$]',
 		crawlerFunction: crawlGuardian
 	},
 	{
 		name: 'guardian_us',
 		alias: 'guardian',
-		url: 'theguardian\.com\/us\-news\/us\-politics$|theguardian\.com\/us\-news\/us\-politics\?page=\d$',
+		url: 'theguardian\.com\/us\-news\/us\-politics[$|\?page=\d$]',
 		crawlerFunction: crawlGuardian
 	},
 	{
 		name: 'guardian_australia',
 		alias: 'guardian',
-		url: 'theguardian\.com\/australia\-news$|theguardian\.com\/australia\-news\?page=\d$',
+		url: 'theguardian\.com\/australia\-news[$|\?page=\d$]',
 		crawlerFunction: crawlGuardian
 	},
 	{
 		name: 'guardian_europe',
 		alias: 'guardian',
-		url: 'theguardian\.com\/world\/europe\-news$|theguardian\.com\/world\/europe\-news\?page=\d$',
+		url: 'theguardian\.com\/world\/europe\-news[$|\?page=\d$]',
 		crawlerFunction: crawlGuardian
 	},
 	{
