@@ -81,7 +81,7 @@ function harvester_getLastNews() {
 		}
 	}).done(function(data) {
 		//run crawler
-		crawlersList[currentCrawler].function(JSON.parse(data));
+		crawlersList[currentCrawler].crawlerFunction(JSON.parse(data));
 	});
 }
 

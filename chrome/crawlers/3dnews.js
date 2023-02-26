@@ -1,5 +1,5 @@
-function crawlGuardian(lastNews) {
-	logEvent('CRAWLING Guardian');
+function crawl3dnews(lastNews) {
+	logEvent('CRAWLING 3dnews');
 
 	newsArray = [];
 
@@ -7,7 +7,7 @@ function crawlGuardian(lastNews) {
 	lastNewsFullUrl = lastNews[0].lastLink;
 
 	//Delete domain name
-	lastNewsShortUrl = lastNewsFullUrl.slice(27);
+	lastNewsShortUrl = lastNewsFullUrl.slice(lastNewsFullUrl.indexOf('.ru') + 3);
 
 	//last news detected
 	lastNewsFound = false;
@@ -37,26 +37,6 @@ function crawlGuardian(lastNews) {
 		//get news preview
 		var preview = $(this).parent().next().find('div').html();
 
-		//if undefined, try another way
-		if(preview == undefined) {
-			preview = $(this).parent().next().find('p').html();
-
-			//if still can't get text, give up
-			if(preview == undefined) {
-				preview = '';
-			}
-		}
-
-		//check if preview have timestamp -> means there's no preview
-		if (preview.includes('<time')) {
-			preview = '';
-		}
-
-		//trim and remove strong tag
-		preview = preview.trim();
-		preview = preview.replace('<strong>','');
-		preview = preview.replace('</strong>','');
-
 		//get news time
 		var newsDate = $(this).parent().parent().find('time').attr('datetime');
 
@@ -76,7 +56,6 @@ function crawlGuardian(lastNews) {
 	if (url.includes('page=')) {
 		pageNumber = url.slice(-1);
 		newLocation = url.slice(0,url.length-1) + (parseInt(pageNumber) + 1);
-
 	} else {
 		pageNumber = 1;
 		newLocation = url + '?page=2';
@@ -92,6 +71,3 @@ function crawlGuardian(lastNews) {
 	}
 
 }
-
-
-

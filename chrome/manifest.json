@@ -35,6 +35,7 @@
         "crawlers/guardian.js",
         "crawlers/reuters.js",
         "crawlers/hq.js",
+        "crawlers/3dnews.js",
         "crawlersList.js"
       ]
     }
