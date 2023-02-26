@@ -115,7 +115,7 @@ let crawlersList = [
 	},
 	{
 		name: 'kommersant_it',
-		alias: 'kommersant_it',
+		alias: 'kommersant',
 		url: 'kommersant.ru\/hitech$',
 		crawlerFunction: crawlKommersant_it
 	}
