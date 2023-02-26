@@ -157,9 +157,12 @@ function convertForeignTime(date) {
 	return newDate;
 }
 
-//convert '26.02.2023 19:58' -> '202302261958'
+//convert '26.02.2023 19:58' || '26.02.2023, 15:44' -> '202302261958'
 function convertRusTime(date) {
-	return date.slice(6,10) + date.slice(3,5) + date.slice(0,2) + date.slice(11,13) + date.slice(14,16);
+	//trim data
+	date = date.trim();
+
+	return date.slice(6,10) + date.slice(3,5) + date.slice(0,2) + date.slice(-5,-3) + date.slice(-2);
 }
 
 function crawlerFinish(message, type = 'normal') {

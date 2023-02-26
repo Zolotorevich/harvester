@@ -37,6 +37,7 @@
         "crawlers/hq.js",
         "crawlers/3dnews.js",
         "crawlers/xakep.js",
+        "crawlers/kommersant_it.js",
         "crawlersList.js"
       ]
     }

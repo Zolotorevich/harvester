@@ -75,7 +75,7 @@ function crawlTass(lastNews) {
 				loadButton.click();
 			}
 
-			//scroll to buttom
+			//scroll to bottom
 			$("html, body").animate({ scrollTop: $(document).height() }, 500);
 			
 			//next loop

@@ -112,6 +112,12 @@ let crawlersList = [
 		alias: 'xakep',
 		url: 'xakep\.ru\/category\/news\/$|xakep\.ru\/category\/news\/page\/.\/$',
 		crawlerFunction: crawlXakep
+	},
+	{
+		name: 'kommersant_it',
+		alias: 'kommersant_it',
+		url: 'kommersant.ru\/hitech$',
+		crawlerFunction: crawlKommersant_it
 	}
 ];
 
