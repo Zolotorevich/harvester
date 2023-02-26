@@ -92,13 +92,13 @@ let crawlersList = [
 	{
 		name: 'guardian_europe',
 		alias: 'guardian',
-		url: 'theguardian\.com\/world\/europe$|theguardian\.com\/world\/europe.page=',
+		url: 'theguardian\.com\/world\/europe\-news$|theguardian\.com\/world\/europe\-news.page=',
 		crawlerFunction: crawlGuardian
 	},
 	{
 		name: 'reuters',
 		alias: 'reuters',
-		url: 'reuters\.com\/myview\/all\/all\-entities$',
+		url: 'reuters\.com\/myview\/all\/all\-entities\/$',
 		crawlerFunction: crawlReuters
 	},
 	{
