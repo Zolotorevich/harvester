@@ -29,7 +29,7 @@ function crawlRbc(lastNews) {
 					//check if link releative
 					if (!newsLink.includes('https://')) {
 						//add domain name
-						newsLink = 'https://www.kommersant.ru' + newsLink;
+						newsLink = 'https://www.rbc.ru' + newsLink;
 					}
 
 					//check if it's last news

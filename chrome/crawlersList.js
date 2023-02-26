@@ -136,6 +136,12 @@ let crawlersList = [
 		alias: 'rbc',
 		url: 'rbc\.ru\/technology_and_media\/$',
 		crawlerFunction: crawlRbc
+	},
+	{
+		name: 'tomshardware',
+		alias: 'tomshardware',
+		url: 'tomshardware\.com\/news$|tomshardware\.com\/news\/page\/',
+		crawlerFunction: crawlTomshardware
 	}
 ];
 

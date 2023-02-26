@@ -39,6 +39,7 @@
         "crawlers/xakep.js",
         "crawlers/kommersant_it.js",
         "crawlers/rbc.js",
+        "crawlers/tomshardware.js",
         "crawlersList.js"
       ]
     }
