@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Harvester • Leditor II</title>
+	<title> • Harvester</title>
     <link rel="stylesheet" href="/style/main.css" />
 	<script src="/scripts/jquery-3.6.3.min.js"></script>
 	<script src="/scripts/harvester/main.js"></script>

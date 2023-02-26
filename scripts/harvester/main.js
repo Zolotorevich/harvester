@@ -57,6 +57,9 @@ function changeIssue(issueName) {
 	//set global issue name
 	dateObjMeta.issue = issueName;
 
+	//Change page title
+	$(document).prop('title', issueName + ' • Harvester');
+
 	//load news
 	loadNews();
 }
