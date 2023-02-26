@@ -118,6 +118,12 @@ let crawlersList = [
 		alias: 'kommersant',
 		url: 'kommersant.ru\/hitech$',
 		crawlerFunction: crawlKommersant_it
+	},
+	{
+		name: 'interfax_it',
+		alias: 'interfax',
+		url: 'interfax\.ru\/digital\/$',
+		crawlerFunction: crawlInterfax
 	}
 ];
 
