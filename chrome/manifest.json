@@ -34,7 +34,8 @@
         "crawlers/tass.js",
         "crawlers/guardian.js",
         "crawlers/reuters.js",
-        "crawlers/hq.js"
+        "crawlers/hq.js",
+        "crawlersList.js"
       ]
     }
   ]

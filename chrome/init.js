@@ -1,6 +1,6 @@
 const harvesterDateObj = new Object();
-const harvesterCrawler = new Object();
 let serevrUrl = 'https://harvester.local';
+var currentCrawler;
 
 $(document).ready(function(){
 
@@ -9,16 +9,16 @@ $(document).ready(function(){
 	//generate date object
 	create_harvesterDateObj();
 
-	//generate crawler object
-	create_harvesterCrawlerObj();
-	
-	//run crawler
-	if (harvesterCrawler.name != 'none') {
-		harvester_getLastNews(harvesterCrawler.name);	
+	//find crawler
+	var url = window.location.href;
+	currentCrawler = crawlersList.findIndex(x => url.match(x.url));
+
+	//launch crawler if found
+	if (currentCrawler >= 0) {
+		harvester_getLastNews();
 	} else {
 		logEvent('NO CRAWLER for this page');
 	}
-	
 
 });
 
@@ -65,124 +65,9 @@ function create_harvesterDateObj() {
 
 }
 
-function create_harvesterCrawlerObj() {
-	var url = window.location.href;
+function harvester_getLastNews() {
 
-	if (url.includes('interfax.ru')) {
-		harvesterCrawler.name = 'interfax';
-		harvesterCrawler.alias = 'interfax';
-	}
-
-	else if (url.includes('tass.ru/mezhdunarodnaya-panorama')) {
-		harvesterCrawler.name = 'tass_world';
-		harvesterCrawler.alias = 'tass';
-	}
-
-	else if (url.includes('tass.ru/politika')) {
-		harvesterCrawler.name = 'tass_politics';
-		harvesterCrawler.alias = 'tass';
-	}
-
-	else if (url.includes('tass.ru/obschestvo')) {
-		harvesterCrawler.name = 'tass_society';
-		harvesterCrawler.alias = 'tass';
-	}
-
-	else if (url.includes('tass.ru/ekonomika')) {
-		harvesterCrawler.name = 'tass_economy';
-		harvesterCrawler.alias = 'tass';
-	}
-
-	else if (url.includes('aljazeera.com')) {
-		harvesterCrawler.name = 'aljazeera';
-		harvesterCrawler.alias = 'aljazeera';
-	}
-	
-	else if (url.includes('nytimes.com')) {
-		harvesterCrawler.name = 'nytimes';
-		harvesterCrawler.alias = 'nytimes';
-	}
-
-	else if (url.includes('theguardian.com/world/africa')) {
-		harvesterCrawler.name = 'guardian_africa';
-		harvesterCrawler.alias = 'guardian';
-	}
-
-	else if (url.includes('theguardian.com/world/americas')) {
-		harvesterCrawler.name = 'guardian_americas';
-		harvesterCrawler.alias = 'guardian';
-	}
-
-	else if (url.includes('theguardian.com/world/asia-pacific')) {
-		harvesterCrawler.name = 'guardian_asia_pacific';
-		harvesterCrawler.alias = 'guardian';
-	}
-
-	else if (url.includes('theguardian.com/world/south-and-central-asia')) {
-		harvesterCrawler.name = 'guardian_asia_center';
-		harvesterCrawler.alias = 'guardian';
-	}
-
-	else if (url.includes('theguardian.com/world/middleeast')) {
-		harvesterCrawler.name = 'guardian_middleeast';
-		harvesterCrawler.alias = 'guardian';
-	}
-
-	else if (url.includes('theguardian.com/politics')) {
-		harvesterCrawler.name = 'guardian_uk';
-		harvesterCrawler.alias = 'guardian';
-	}
-
-	else if (url.includes('theguardian.com/us-news/us-politics')) {
-		harvesterCrawler.name = 'guardian_us';
-		harvesterCrawler.alias = 'guardian';
-	}
-
-	else if (url.includes('theguardian.com/australia-news')) {
-		harvesterCrawler.name = 'guardian_australia';
-		harvesterCrawler.alias = 'guardian';
-	}
-
-	else if (url.includes('theguardian.com/world/europe-news')) {
-		harvesterCrawler.name = 'guardian_europe';
-		harvesterCrawler.alias = 'guardian';
-	}
-
-	else if (url.includes('reuters.com/myview/all/all-entities')) {
-		harvesterCrawler.name = 'reuters';
-		harvesterCrawler.alias = 'reuters';
-	}
-
-	else {
-		harvesterCrawler.name = 'none';
-		harvesterCrawler.alias = 'none';
-	}
-
-
-}
-
-//add leading zero if needed and return string
-function addLeadingZero(number) {
-	if (number >= 0 && number < 10) {
-		numberAsString = '0' + number.toString();
-	} else {
-		numberAsString = number.toString();
-	}
-
-	return numberAsString;
-}
-
-function logEvent(message) {
-	const today = new Date();
-	var hours = today.getHours();
-	var minutes = today.getMinutes();
-	var seconds = today.getSeconds();
-
-	console.log(addLeadingZero(hours) + ':' + addLeadingZero(minutes) + ':' + addLeadingZero(seconds) + ' | ' + message);
-}
-
-function harvester_getLastNews(crawlerName) {
-
+	//request last news for crawler
 	$.ajax({
 		beforeSend: function(){
 			logEvent('REQUESTING last news');
@@ -190,20 +75,13 @@ function harvester_getLastNews(crawlerName) {
 		url: serevrUrl + '/core/getLastNews.php',
 		method: 'get',
 		dataType: 'text',
-		data: {crawler: crawlerName},
+		data: {crawler: crawlersList[currentCrawler].name},
 		success: function(data){
 			logEvent('RECIEVED ' + data);
 		}
 	}).done(function(data) {
-
-		lastNews = JSON.parse(data);
-
-		if (harvesterCrawler.alias == 'aljazeera') { crawlAljazeera(lastNews); }
-		else if (harvesterCrawler.alias == 'tass') { crawlTass(lastNews); }
-		else if (harvesterCrawler.alias == 'interfax') { crawlInterfax(lastNews); }
-		else if (harvesterCrawler.alias == 'nytimes') { crawlNytimes(lastNews); }
-		else if (harvesterCrawler.alias == 'guardian') { crawlGuardian(lastNews); }
-		else if (harvesterCrawler.alias == 'reuters') { crawlReuters(lastNews); }
+		//run crawler
+		crawlersList[currentCrawler].function(JSON.parse(data));
 	});
 }
 
@@ -216,9 +94,7 @@ function harvester_sendData(newsArray, redirect = '') {
 		return false;
 	}
 
-	var finalArray = [{carwler:harvesterCrawler.name}, newsArray];
-
-	console.log(finalArray);
+	var finalArray = [{carwler:crawlersList[currentCrawler].name}, newsArray];
 
 	$.ajax({
 		beforeSend: function(){
@@ -249,6 +125,26 @@ function harvester_sendData(newsArray, redirect = '') {
 		}
 	});
 
+}
+
+//add leading zero if needed and return string
+function addLeadingZero(number) {
+	if (number >= 0 && number < 10) {
+		numberAsString = '0' + number.toString();
+	} else {
+		numberAsString = number.toString();
+	}
+
+	return numberAsString;
+}
+
+function logEvent(message) {
+	const today = new Date();
+	var hours = today.getHours();
+	var minutes = today.getMinutes();
+	var seconds = today.getSeconds();
+
+	console.log(addLeadingZero(hours) + ':' + addLeadingZero(minutes) + ':' + addLeadingZero(seconds) + ' | ' + message);
 }
 
 //convert '2023-01-14T16:26:50-05:00' -> '202301141626' (MSK)
