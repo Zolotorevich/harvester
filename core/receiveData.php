@@ -16,7 +16,7 @@ $sql = '';
 $crawlerName = $decoded[0]["carwler"];
 
 //get crawler issue and alias
-$result = $connection->query("SELECT issue, alias FROM crawlers WHERE name LIKE '$crawlerName';");
+$result = $connection->query("SELECT issue, alias, lastDate FROM crawlers WHERE name LIKE '$crawlerName';");
 
 //collect result
 $crawlerSpecs = $result->fetch_all(MYSQLI_ASSOC);
@@ -33,7 +33,11 @@ foreach ($decoded[1] as $key => $value) {
 
 	//update crawler last news
 	if ($key === array_key_first($decoded[1])) {
-        $sql .= "UPDATE crawlers SET lastDate = '$newsDate', lastTitle = '$newsTitle', lastLink = '$newsLink' WHERE name = '".$crawlerName."';";
+		//check if news newer that last in crawlers table
+		if ($newsDate >= $crawlerSpecs[0]['lastDate']) {
+			//update last news
+			$sql .= "UPDATE crawlers SET lastDate = '$newsDate', lastTitle = '$newsTitle', lastLink = '$newsLink' WHERE name = '".$crawlerName."';";
+		}
     }
 
 }

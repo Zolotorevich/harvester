@@ -106,6 +106,12 @@ let crawlersList = [
 		alias: '3dnews',
 		url: '3dnews\.ru\/news$|3dnews\.ru\/news\/page\-.\.html',
 		crawlerFunction: crawl3dnews
+	},
+	{
+		name: 'xakep',
+		alias: 'xakep',
+		url: 'xakep\.ru\/category\/news\/$|xakep\.ru\/category\/news\/page\/.\/$',
+		crawlerFunction: crawlXakep
 	}
 ];
 
