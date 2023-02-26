@@ -12,12 +12,16 @@ function crawl3dnews(lastNews) {
 	//last news detected
 	lastNewsFound = false;
 
-	return true;
-
 	//create results array
-	$('section h3').each(function() {
+	$('#section-content .article-entry:not(.newsAllFeedHideItem)').each(function() {
 		//get news link
-		var newsLink = $(this).find('a').attr('href');
+		var newsLink = $(this).find('a.entry-header').attr('href');
+
+		//check if link releative
+		if (!newsLink.includes('https://')) {
+			//add domain name
+			newsLink = 'https://3dnews.ru' + newsLink;
+		}
 
 		//check if it's last news
 		if (newsLink == lastNewsFullUrl) {
@@ -27,24 +31,18 @@ function crawl3dnews(lastNews) {
 			return false;
 		}
 
-		//check if link releative
-		if (!newsLink.includes('https://')) {
-			//add domain name
-			newsLink = 'https://www.theguardian.com' + newsLink;
-		}
-
 		//get news title
-		var newsTitle = $(this).find('span').find('span').text().trim();
+		var newsTitle = $(this).find('h1').text();
 
 		//get news preview
-		var preview = $(this).parent().next().find('div').html();
+		var preview = $(this).find('p').text();
 
 		//get news time
-		var newsDate = $(this).parent().parent().find('time').attr('datetime');
+		var newsDate = $(this).find('span.entry-date').text();
 
 		//save to array
 		newsArray.push({
-			'date':convertForeignTime(newsDate),
+			'date':convertRusTime(newsDate),
 			'title':newsTitle,
 			'link':newsLink,
 			'preview':preview
@@ -55,12 +53,12 @@ function crawl3dnews(lastNews) {
 	//get page number
 	var url = window.location.href;
 
-	if (url.includes('page=')) {
-		pageNumber = url.slice(-1);
-		newLocation = url.slice(0,url.length-1) + (parseInt(pageNumber) + 1);
+	if (url.includes('page-')) {
+		pageNumber = url.slice(28,29);
+		newLocation = url.slice(0,28) + (parseInt(pageNumber) + 1) + '.html';
 	} else {
 		pageNumber = 1;
-		newLocation = url + '?page=2';
+		newLocation = url + '/page-2.html';
 	}
 
 	//found last news or it's last page

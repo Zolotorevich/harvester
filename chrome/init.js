@@ -157,6 +157,11 @@ function convertForeignTime(date) {
 	return newDate;
 }
 
+//convert '26.02.2023 19:58' -> '202302261958'
+function convertRusTime(date) {
+	return date.slice(6,10) + date.slice(3,5) + date.slice(0,2) + date.slice(11,13) + date.slice(14,16);
+}
+
 function crawlerFinish(message, type = 'normal') {
 
 	//messgae bakc color
