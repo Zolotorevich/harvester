@@ -166,6 +166,11 @@ let crawlersList = [
 		alias: 'bloomberg',
 		url: 'bloomberg\.com\/technology$',
 		crawlerFunction: crawlBloomberg
+	},
+	{
+		name: 'servernews',
+		alias: 'servernews',
+		url: 'servernews\.ru\/news$|servernews\.ru\/news\/page\-.\.html$',
+		crawlerFunction: crawlServernews
 	}
 ];
-

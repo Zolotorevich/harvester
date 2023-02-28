@@ -42,6 +42,7 @@
         "crawlers/tomshardware.js",
         "crawlers/cnews.js",
         "crawlers/bloomberg.js",
+        "crawlers/servernews.js",
         "crawlersList.js"
       ]
     }
