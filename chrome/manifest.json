@@ -40,6 +40,7 @@
         "crawlers/kommersant_it.js",
         "crawlers/rbc.js",
         "crawlers/tomshardware.js",
+        "crawlers/cnews.js",
         "crawlersList.js"
       ]
     }

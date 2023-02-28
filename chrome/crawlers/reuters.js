@@ -50,8 +50,7 @@ function crawlReuters(lastNews) {
 				});
 
 				//send data
-				console.log(newsArray);
-				//harvester_sendData(newsArray);
+				harvester_sendData(newsArray);
 				return true;
 
 			}

@@ -154,6 +154,12 @@ let crawlersList = [
 		alias: 'reuters',
 		url: 'reuters\.com\/business\/media\-telecom\/$',
 		crawlerFunction: crawlReutersSection
+	},
+	{
+		name: 'cnews',
+		alias: 'cnews',
+		url: 'cnews\.ru\/news$',
+		crawlerFunction: crawlCnews
 	}
 ];
 
