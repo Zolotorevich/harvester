@@ -160,6 +160,12 @@ let crawlersList = [
 		alias: 'cnews',
 		url: 'cnews\.ru\/news$',
 		crawlerFunction: crawlCnews
+	},
+	{
+		name: 'bloomberg',
+		alias: 'bloomberg',
+		url: 'bloomberg\.com\/technology$',
+		crawlerFunction: crawlBloomberg
 	}
 ];
 

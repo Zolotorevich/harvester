@@ -41,6 +41,7 @@
         "crawlers/rbc.js",
         "crawlers/tomshardware.js",
         "crawlers/cnews.js",
+        "crawlers/bloomberg.js",
         "crawlersList.js"
       ]
     }
