@@ -43,6 +43,7 @@
         "crawlers/cnews.js",
         "crawlers/bloomberg.js",
         "crawlers/servernews.js",
+        "crawlers/vice.js",
         "crawlersList.js"
       ]
     }
