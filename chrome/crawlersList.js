@@ -214,5 +214,23 @@ let crawlersList = [
 		alias: 'register',
 		url: 'theregister\.com\/on_prem\/$',
 		crawlerFunction: crawlRegister
+	},
+	{
+		name: 'verge_tech',
+		alias: 'verge',
+		url: 'theverge\.com\/tech$|theverge\.com\/tech\/archives\/.$',
+		crawlerFunction: crawlVerge
+	},
+	{
+		name: 'verge_science',
+		alias: 'verge',
+		url: 'theverge\.com\/science$|theverge\.com\/science\/archives\/.$',
+		crawlerFunction: crawlVerge
+	},
+	{
+		name: 'verge_entertainment',
+		alias: 'verge',
+		url: 'theverge\.com\/entertainment$|theverge\.com\/entertainment\/archives\/.$',
+		crawlerFunction: crawlVerge
 	}
 ];

@@ -46,6 +46,7 @@
         "crawlers/vice.js",
         "crawlers/cnet.js",
         "crawlers/register.js",
+        "crawlers/verge.js",
         "crawlersList.js"
       ]
     }
