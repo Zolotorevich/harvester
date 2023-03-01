@@ -184,5 +184,35 @@ let crawlersList = [
 		alias: 'cnet',
 		url: 'cnet\.com\/news\/$',
 		crawlerFunction: crawlCnet
+	},
+	{
+		name: 'register_sec',
+		alias: 'register',
+		url: 'theregister\.com\/security\/$',
+		crawlerFunction: crawlRegister
+	},
+	{
+		name: 'register_soft',
+		alias: 'register',
+		url: 'theregister\.com\/software\/$',
+		crawlerFunction: crawlRegister
+	},
+	{
+		name: 'register_offbeat',
+		alias: 'register',
+		url: 'theregister\.com\/offbeat\/$',
+		crawlerFunction: crawlRegister
+	},
+	{
+		name: 'register_offprem',
+		alias: 'register',
+		url: 'theregister\.com\/off_prem\/$',
+		crawlerFunction: crawlRegister
+	},
+	{
+		name: 'register_onprem',
+		alias: 'register',
+		url: 'theregister\.com\/on_prem\/$',
+		crawlerFunction: crawlRegister
 	}
 ];

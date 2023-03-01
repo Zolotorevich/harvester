@@ -13,7 +13,7 @@ function crawlVice(lastNews) {
 		setTimeout(function() {
 
 			//get date of last news in list
-			var lastNewsInListDate = convertViceTime($('.feed time').last().attr('datetime'));
+			var lastNewsInListDate = convertEpochTime($('.feed time').last().attr('datetime'));
 
 			if (lastNews[0].lastDate > lastNewsInListDate) {
 
@@ -38,7 +38,7 @@ function crawlVice(lastNews) {
 					var newsPreview = $(this).find('p').text();
 
 					//get news date
-					var newsDate = convertViceTime($(this).find('time').attr('datetime'));
+					var newsDate = convertEpochTime($(this).find('time').attr('datetime'));
 
 					//save to array
 					newsArray.push({
@@ -81,10 +81,5 @@ function crawlVice(lastNews) {
 
 	//launch crawler
 	findNews();
-
-	function convertViceTime(date) {
-		newDate = new Date(parseInt(date));
-		return newDate.getFullYear().toString() + addLeadingZero(newDate.getMonth() + 1) + addLeadingZero(newDate.getDate()) + addLeadingZero(newDate.getHours()) + addLeadingZero(newDate.getMinutes());
-	}
-
+	
 }

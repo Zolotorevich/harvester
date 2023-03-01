@@ -147,6 +147,22 @@ function logEvent(message) {
 	console.log(addLeadingZero(hours) + ':' + addLeadingZero(minutes) + ':' + addLeadingZero(seconds) + ' | ' + message);
 }
 
+function crawlerFinish(message, type = 'normal') {
+
+	//messgae bakc color
+	if (type == 'normal') {
+		backcolor = '#10b11b';
+	} else {
+		backcolor = '#cd2424';
+	}
+
+	//create message div
+	html = '<div style="position:fixed; top:20px; left:20px; z-index:99999999; width:300px; height:150px; background-color:' + backcolor + '; font-size:80px; text-align:center;">' + message + '</div>'
+
+	$('body').append(html);
+	
+}
+
 //convert '2023-01-14T16:26:50-05:00' -> '202301141626' (MSK)
 function convertForeignTime(date) {
 	var moscowDate = new Date(date);
@@ -165,18 +181,9 @@ function convertRusTime(date) {
 	return date.slice(6,10) + date.slice(3,5) + date.slice(0,2) + date.slice(-5,-3) + date.slice(-2);
 }
 
-function crawlerFinish(message, type = 'normal') {
-
-	//messgae bakc color
-	if (type == 'normal') {
-		backcolor = '#10b11b';
-	} else {
-		backcolor = '#cd2424';
-	}
-
-	//create message div
-	html = '<div style="position:fixed; top:20px; left:20px; z-index:99999999; width:300px; height:150px; background-color:' + backcolor + '; font-size:80px; text-align:center;">' + message + '</div>'
-
-	$('body').append(html);
-	
+//convert '1677655806' -> '202303010730'
+function convertEpochTime(date) {
+	newDate = new Date(parseInt(date));
+	return newDate.getFullYear().toString() + addLeadingZero(newDate.getMonth() + 1) + addLeadingZero(newDate.getDate()) + addLeadingZero(newDate.getHours()) + addLeadingZero(newDate.getMinutes());
 }
+
