@@ -2,7 +2,7 @@ function crawlKommersant_it(lastNews) {
 	logEvent('CRAWLING Kommersant hitech');
 
 	var delay = 5000; //in ms
-	var attempts = 10;
+	var attempts = 40;
 	var i = 0;
 	newsArray = [];
 

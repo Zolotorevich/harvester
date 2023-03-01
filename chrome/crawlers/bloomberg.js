@@ -5,7 +5,7 @@ function crawlBloomberg(lastNews) {
 	$("html, body").animate({ scrollTop: $(document).height() }, 0);
 
 	var delay = 5000;
-	var attempts = 10;
+	var attempts = 40;
 	var i = 0;
 	newsArray = [];
 
