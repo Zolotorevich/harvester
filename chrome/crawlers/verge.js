@@ -3,12 +3,11 @@ function crawlVerge(lastNews) {
 
 	newsArray = [];
 
-	$('div[class*="duet--content-cards"]').each(function() {
+	$('div.duet--content-cards--content-card').each(function() {
 
-		var newsTitle = $(this).find('h2').text();
-
-		if (newsTitle == '') {
+		if ($(this).find('h2').length < 1) {
 			newsTitle = $(this).find('div.inline').text();
+			console.log('inline = ' + $(this).find('div.inline').length);
 			
 			//get news preview
 			preview = $(this).find('p[class*="duet--article"]').text();
@@ -17,6 +16,7 @@ function crawlVerge(lastNews) {
 			var newsLink = $(this).find('a').first().attr('href');
 
 		} else {
+			var newsTitle = $(this).find('h2').text();
 			//get news preview
 			var preview = '';
 
@@ -40,6 +40,8 @@ function crawlVerge(lastNews) {
 				'link':newsLink,
 				'preview':preview
 			});
+
+			
 			
 		}
 
