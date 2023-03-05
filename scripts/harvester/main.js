@@ -14,13 +14,15 @@ $(document).ready(function(){
 	//create dateObj
 	createDateObject();
 
-	//get hash
-	var hash = window.location.hash;
-	hash = hash.slice(1,hash.length);
+	//get page url
+	var url = window.location.href;
+
+	//find issue in url
+	currentCategory = issues.findIndex(x => url.match(x));
 	
 	//check if hash has issue
-	if (issues.includes(hash)) {
-		changeIssue(hash);
+	if (currentCategory >= 0) {
+		changeIssue(issues[currentCategory]);
 	} else {
 		changeIssue('home');
 	}
@@ -28,13 +30,13 @@ $(document).ready(function(){
 	//set timer for update viewed news
 	setInterval(sendViewedNews,9000);
 
-	//menu items event
-	$('#menuExportList li').click(function() {
-		var clickedIssue = $(this).attr('data-issue');
-		if (clickedIssue != dateObjMeta.issue) {
-			changeIssue(clickedIssue);
-		}
-	});
+	// //menu items event
+	// $('#menuExportList li').click(function() {
+	// 	var clickedIssue = $(this).attr('data-issue');
+	// 	if (clickedIssue != dateObjMeta.issue) {
+	// 		changeIssue(clickedIssue);
+	// 	}
+	// });
 
 	$('#viewedSwitch').click(function(){ toggleViewed(); });
 
@@ -50,9 +52,6 @@ function changeIssue(issueName) {
 	//change menu items
 	$('#menuExportList li').removeClass('menuExportSelected');
 	$('#issue_' + issueName).addClass('menuExportSelected');
-
-	//change hash
-	location.hash = '#' + issueName;
 
 	//set global issue name
 	dateObjMeta.issue = issueName;

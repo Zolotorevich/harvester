@@ -1,0 +1,4 @@
+Options +FollowSymLinks
+RewriteEngine on
+RewriteRule ^category/(.*) /index.php?category=$1
+RewriteRule ^category/(.*)/ /index.php?category=$1

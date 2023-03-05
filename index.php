@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title> • Harvester</title>
+	<meta name="referrer" content="unsafe-url">
     <link rel="stylesheet" href="/style/main.css" />
 	<script src="/scripts/jquery-3.6.3.min.js"></script>
 	<script src="/scripts/harvester/main.js"></script>
@@ -22,9 +23,9 @@
 
 	<div id="leftSideMenu">
 		<ul id="menuExportList">
-			<li id="issue_home" data-issue="home" class="menuExportKey1">Home</li>
-			<li id="issue_foreignNews" data-issue="foreignNews" class="menuExportKey2">Foreign</li>
-			<li id="issue_ntab" data-issue="ntab" class="menuExportKey3">ntab</li>
+			<li id="issue_home" class="menuExportKey1"><a href="/category/home">Home</a></li>
+			<li id="issue_foreignNews" class="menuExportKey2"><a href="/category/foreignNews">Foreign</a></li>
+			<li id="issue_ntab" class="menuExportKey3"><a href="/category/ntab">ntab</a></li>
 		</ul>
 		<div class="menuHLine"></div>
 		<ul id="menuIndicatorsList">
