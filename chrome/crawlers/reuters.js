@@ -2,7 +2,7 @@ function crawlReuters(lastNews) {
 	logEvent('CRAWLING Reuters');
 
 	var delay = 2000;
-	var attempts = 35;
+	var attempts = 55;
 	var i = 0;
 	newsArray = [];
 
