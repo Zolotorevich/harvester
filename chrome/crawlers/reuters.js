@@ -93,6 +93,7 @@ function crawlReutersSection(lastNews) {
 
 	//Delete domain name
 	lastNewsShortUrl = lastNewsFullUrl.slice(lastNewsFullUrl.indexOf('.com') + 4);
+	console.log('SEARCHING FOR ' + lastNewsShortUrl)
 
 	//last news detected
 	lastNewsFound = false;
@@ -104,7 +105,7 @@ function crawlReutersSection(lastNews) {
 			if ($(`a[href*="${lastNewsShortUrl}"]`).length > 0) {
 				//parse hero
 				var hero = $('li[class*="story-collection__hero"]');
-				var heroLink = hero.find('a[data-testid="Heading"]').attr('href');
+				var heroLink = hero.find('a[data-testid="Link"]').attr('href');
 
 				//check if link releative
 				if (!heroLink.includes('https://')) {
@@ -112,7 +113,7 @@ function crawlReutersSection(lastNews) {
 					heroLink = 'https://www.reuters.com' + heroLink;
 				}
 
-				var heroTitle = hero.find('a[data-testid="Heading"] span').first().text();
+				var heroTitle = hero.find('a[data-testid="Link"]').text();
 				var heroPreview = hero.find('p[data-testid="Body"]').text();
 
 				newsArray.push({
@@ -125,7 +126,7 @@ function crawlReutersSection(lastNews) {
 				//parse news with images
 				$('div[data-testid="MediaStoryCard"]:not(div[class*="media-story-card__hero"])').each(function() {
 					//get news link
-					var newsLink = $(this).find('a[data-testid="Heading"]').attr('href');
+					var newsLink = $(this).find('a[class*="media-story-card__heading"]').attr('href');
 
 					//check if link releative
 					if (!newsLink.includes('https://')) {
@@ -134,7 +135,7 @@ function crawlReutersSection(lastNews) {
 					}
 
 					//get news title
-					var newsTitle = $(this).find('a[data-testid="Heading"] span').first().text();
+					var newsTitle = $(this).find('a[class*="media-story-card__heading"]').text();
 
 					//convert date
 					newsDate = convertForeignTime($(this).find('time').attr('datetime'));

@@ -16,7 +16,7 @@ function crawlBloomberg(lastNews) {
 		setTimeout(function() {
 
 			//get date of last news in list
-			var lastNewsInListDate = convertForeignTime($('.hub-lazy-zones time').last().attr('datetime'));
+			var lastNewsInListDate = convertForeignTime($('time[class*="RelativeDate_relativeDate"]').last().attr('datetime'));
 
 			if (lastNewsDate > lastNewsInListDate) {
 
@@ -25,24 +25,17 @@ function crawlBloomberg(lastNews) {
 
 				//save headlines
 				$('section[data-zoneid="Hero"] article').each(function() {
+
+					console.log('data-zoneid="Hero"');
 								
-					//try to get title and link from main hero
-					if ($(this).find('a.single-story-module__headline-link').length > 0) {
-						//get news title
-						var newsTitle = $(this).find('a.single-story-module__headline-link').text();
+					//get news title
+					var newsTitle = $(this).find('a').first().text();
 
-						//get news link
-						var newsLink = $(this).find('a.single-story-module__headline-link').attr('href');
-					} else {
-						//get news title
-						var newsTitle = $(this).find('a.story-package-module__story__headline-link').text();
-
-						//get news link
-						var newsLink = $(this).find('a.story-package-module__story__headline-link').attr('href');
-					}
+					//get news link
+					var newsLink = $(this).find('a').first().attr('href');
 
 					//check for ad
-					if (typeof newsLink !== 'undefined') {
+					if (typeof newsLink !== 'undefined' && !newsLink.includes('events.bloomberglive.com')) {
 						//check if link releative
 						if (!newsLink.includes('https://')) {
 							//add domain name
@@ -62,11 +55,13 @@ function crawlBloomberg(lastNews) {
 					}
 				
 				});
-				
+
+
 				//create results array
-				$('.hub-lazy-zones article').each(function() {
+				$('section[class*="zone_content"] article').each(function() {
+
 					//get news link
-					var newsLink = $(this).find('a.story-list-story__info__headline-link').attr('href');
+					var newsLink = $(this).find('a').first().attr('href');
 
 					//check if link releative
 					if (!newsLink.includes('https://')) {
@@ -75,7 +70,7 @@ function crawlBloomberg(lastNews) {
 					}
 
 					//get news title
-					var newsTitle = $(this).find('a.story-list-story__info__headline-link').text();
+					var newsTitle = $(this).find('a').first().text();
 
 					//get news date
 					var newsDate = convertForeignTime($(this).find('time').attr('datetime'));
