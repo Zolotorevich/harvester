@@ -2,22 +2,42 @@ function loadNews() {
 
 	//generate startDate
 	if (dateObj.weekends) {
-		startDate = dateObj.lastFriday + '1500';
+		// startDate = dateObj.lastFriday + '1500';
 		//startDate = '202302121600';
+
+		startDate = new Date();
+
+		let today = new Date();
+		let todayDayNumber = today.getDate();
+		let todayDayOfWeek = today.getDay();
+
+		startDate.setDate(todayDayNumber + (6 - todayDayOfWeek - 1) - (todayDayOfWeek == 6 ? 0 : 7));
+		startDate.setHours(18, 0);
+
 	} else {
-		startDate = dateObj.yesterday + '1500';
+
+		startDate = new Date();
+		today = new Date();
+		todayDayNumber = today.getDate();
+
+		startDate.setDate(todayDayNumber - 1);
+		startDate.setHours(18, 0);
+
 	}
+
+	var timestamp = '@' + Math.round(startDate.getTime()/1000);
 	
 	$.ajax({
 		url: '/core/getNews.php',
 		method: 'get',
 		dataType: 'json',
-		data: {issue: dateObjMeta.issue, startDate: startDate},
+		data: {issue: 'harvester_news', startDate: timestamp},
 		success: function(data){
-			//console.log(data);
+			// console.log(data);
 			newsData = data;
 		}
 	}).done(function() {
+		// console.log(newsData);
 		displayNews();
 	});
 
@@ -29,7 +49,7 @@ function sendViewedNews() {
 	if (viewedNews.length > 0) {
 
 		//prepare array
-		sendingData = [dateObjMeta.issue, viewedNews];
+		sendingData = ['harvester_news', viewedNews];
 
 		//clear viewed array
 		viewedNews = [];

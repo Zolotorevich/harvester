@@ -43,8 +43,9 @@ $(document).ready(function(){
 });
 
 function changeIssue(issueName) {
+
 	//save viewed
-	sendViewedNews();
+	// sendViewedNews();
 
 	//hide status messages
 	$('.listInfoMessage').hide();
@@ -85,7 +86,7 @@ function displayNews() {
 		//display news
 		$.each(newsData, function(i) {
 
-			html = '<a href="' + newsData[i].link + '" target="_blank" class="newsContainerLink" data-id="' + newsData[i].id + '">';
+			html = '<a href="' + newsData[i].url + '" target="_blank" class="newsContainerLink" data-id="' + newsData[i].id + '">';
 
 			html += '<div class="newsContainer';
 
@@ -96,9 +97,12 @@ function displayNews() {
 
 			html += '">';
 
-			html += '<div class="sourceIcon"><img src="/style/sourceIcons/' + newsData[i].crawler + '.png"></div>';
+			crawler = newsData[i].url.replace(/(https?:\/\/)?(www.)?/i, '');
+			crawler = crawler.split('.');
 
-			html += '<div class="newsTime">' + fullDateToTime(newsData[i].date) + '</div>';
+			html += '<div class="sourceIcon"><img src="/style/sourceIcons/' + crawler[0] + '.png"></div>';
+
+			html += '<div class="newsTime">' + fullDateToTime_new(newsData[i].date) + '</div>';
 			
 			html += '<div class="newsTitle"><span>' + newsData[i].title + '</span>';
 

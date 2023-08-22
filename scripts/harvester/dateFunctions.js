@@ -152,6 +152,30 @@ function fullDateToTime(input, round = true) {
 	return input.slice(8,10) + ':' + input.slice(10);
 }
 
+//convert 2023-08-21 17:28:12 -> 17:00, opt: round by 5 minutes
+function fullDateToTime_new(input) {
+
+	input = input.toString();
+
+	var hours = input.slice(11,13);
+	var minutes = input.slice(14,16);
+
+	//check if it's >23:55
+	if (parseInt(hours) == 23 && parseInt(minutes) > 55) {
+		return '23:55';
+	} else if(parseInt(minutes) > 55) {
+		//checkif it's 55 minutes
+		return hours + ':55';
+	}
+
+	//round to nearest 5
+	minutes = Math.round(parseInt(minutes) / 5) * 5;
+
+	//return with leading zero if needed
+	return hours + ':' + addLeadingZero(minutes);
+
+}
+
 //convert 202301101700 -> 10.01
 function fullDateToShortDate(input) {
 	return input.slice(6,8) + '.' + input.slice(4,6);

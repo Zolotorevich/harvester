@@ -10,7 +10,10 @@ if(isset($_GET['issue']) && isset($_GET['startDate'])) {
 	$startDate = $_GET['startDate'];
 	$issue = $_GET['issue'];
 
-	$sql = "SELECT * FROM $issue WHERE date >= '$startDate';";
+	$newDATE = new DateTime($startDate);
+	$mysqldate = $newDATE->format('Y-m-d H:i:s');
+
+	$sql = "SELECT * FROM $issue WHERE date >= '$mysqldate';";
 	
 	//preform sql
 	$result = $connection->query($sql);
