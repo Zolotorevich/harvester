@@ -8,7 +8,7 @@ function crawlTass(lastNews) {
 	lastNewsFound = false;
 
 	//get date of last news
-	lastNewsDate = lastNews[0].lastDate;
+	var lastNewsDate = lastNews[0].lastDate;
 
 	function findNews() {
 		setTimeout(function() {
