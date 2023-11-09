@@ -1,26 +1,38 @@
-const harvesterDateObj = new Object();
-let serevrUrl = 'https://harvester.local';
-var currentCrawler;
+// const harvesterDateObj = new Object();
+// let serevrUrl = 'https://harvester.local';
+// var currentCrawler;
 
 $(document).ready(function(){
 
-	logEvent('HARVESTER START');
+	//check if it's Bloomberg
+	if (window.location.href == 'https://www.bloomberg.com/technology') {
+		logEvent('HARVESTER START');
 
-	//generate date object
-	create_harvesterDateObj();
-
-	//find crawler
-	var url = window.location.href;
-	currentCrawler = crawlersList.findIndex(x => url.match(x.url));
-
-	//launch crawler if found
-	if (currentCrawler >= 0) {
-		harvester_getLastNews();
-	} else {
-		logEvent('NO CRAWLER for this page');
+		//launch crawler
+		crawlBloomberg_solo();
 	}
 
 });
+
+// $(document).ready(function(){
+
+// 	logEvent('HARVESTER START');
+
+// 	//generate date object
+// 	create_harvesterDateObj();
+
+// 	//find crawler
+// 	var url = window.location.href;
+// 	currentCrawler = crawlersList.findIndex(x => url.match(x.url));
+
+// 	//launch crawler if found
+// 	if (currentCrawler >= 0) {
+// 		harvester_getLastNews();
+// 	} else {
+// 		logEvent('NO CRAWLER for this page');
+// 	}
+
+// });
 
 function create_harvesterDateObj() {
 	// .hours == 12
@@ -171,6 +183,28 @@ function convertForeignTime(date) {
 	newDate = newDate.slice(6,10) + newDate.slice(3,5) + newDate.slice(0,2) + newDate.slice(12,14) + newDate.slice(15,17);
 
 	return newDate;
+}
+
+//convert '2023-01-14T16:26:50Z' -> '2023-01-14T16:26:50' (MSK)
+function convertForeignTime_bloomberg(date) {
+	var moscowDate = new Date(date).toLocaleString('ru-RU', {timeZone: "Europe/Moscow"});
+
+	// console.log('moscowDate = ' + moscowDate);
+
+	// hours = moscowDate.slice(12,14);
+
+	// console.log('hours = ' + hours);
+
+	// if (parseInt(hours) < 10) {
+	// 	hours = '0' + hours;
+	// }
+
+	result = moscowDate.slice(6,10) + '-' + moscowDate.slice(3,5) + '-' + moscowDate.slice(0,2) + ' ' + moscowDate.slice(12,14) + ':' + moscowDate.slice(15,17) + ':00';
+
+	// console.log(result);
+
+
+	return result;
 }
 
 //convert '26.02.2023 19:58' || '26.02.2023, 15:44' -> '202302261958'
