@@ -19,7 +19,7 @@ function crawlTass(lastNews) {
 			//create results array
 			$('#infinite_listing a').each(function() {
 				//get news link
-				var newsLink = $(this).attr('href');
+				let newsLink = $(this).attr('href');
 
 				//check if link releative
 				if (!newsLink.includes('https://')) {
@@ -28,10 +28,10 @@ function crawlTass(lastNews) {
 				}
 
 				//get news title
-				var newsTitle = $(this).find('span').text();
+				let newsTitle = $(this).find('span').text();
 
 				//get date
-				var rawNewsDate = $(this).find('div[class*="font_weight_black"]').first().text();
+				let rawNewsDate = $(this).find('div[class*="font_weight_black"]').first().text();
 
 				//convert date
 				newsDate = convertTassDate(rawNewsDate);
