@@ -23,9 +23,9 @@
 
 	<div id="leftSideMenu">
 		<ul id="menuExportList">
-			<li id="issue_home" class="menuExportKey1"><a href="/category/home">Home</a></li>
-			<li id="issue_foreignNews" class="menuExportKey2"><a href="/category/foreignNews">Foreign</a></li>
-			<li id="issue_ntab" class="menuExportKey3"><a href="/category/ntab">ntab</a></li>
+			<li id="issue_politics" class="menuExportKey1"><a href="/category/politics">POLITICS</a></li>
+			<li id="issue_economy" class="menuExportKey2"><a href="/category/economy">ECONOMY</a></li>
+			<li id="issue_moex" class="menuExportKey3"><a href="/category/moex">MOEX</a></li>
 		</ul>
 		<div class="menuHLine"></div>
 		<ul id="menuIndicatorsList">

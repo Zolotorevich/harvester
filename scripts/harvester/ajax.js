@@ -2,7 +2,8 @@ function loadNews() {
 
 	//generate startDate
 	if (dateObj.weekends) {
-		// startDate = dateObj.lastFriday + '1500';
+		//TODO change dates
+		//startDate = dateObj.lastFriday + '1500';
 		//startDate = '202302121600';
 
 		startDate = new Date();
@@ -31,7 +32,7 @@ function loadNews() {
 		url: '/core/getNews.php',
 		method: 'get',
 		dataType: 'json',
-		data: {issue: 'harvester_news', startDate: timestamp},
+		data: {issue: dateObjMeta.issue, startDate: timestamp},
 		success: function(data){
 			// console.log(data);
 			newsData = data;
@@ -49,7 +50,7 @@ function sendViewedNews() {
 	if (viewedNews.length > 0) {
 
 		//prepare array
-		sendingData = ['harvester_news', viewedNews];
+		sendingData = [dateObjMeta.issue, viewedNews];
 
 		//clear viewed array
 		viewedNews = [];

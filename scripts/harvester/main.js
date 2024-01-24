@@ -7,7 +7,7 @@ var newsData;
 var viewedNews = [];
 
 //issues
-var issues = ['home', 'foreignNews', 'ntab'];
+var issues = ['politics', 'economy', 'moex'];
 
 $(document).ready(function(){
 
@@ -24,7 +24,7 @@ $(document).ready(function(){
 	if (currentCategory >= 0) {
 		changeIssue(issues[currentCategory]);
 	} else {
-		changeIssue('home');
+		changeIssue('politics');
 	}
 
 	//set timer for update viewed news
