@@ -7,7 +7,7 @@ var newsData;
 var viewedNews = [];
 
 //issues
-var issues = ['politics', 'economy', 'moex'];
+var issues = ['politics', 'economy', 'corporate'];
 
 $(document).ready(function(){
 

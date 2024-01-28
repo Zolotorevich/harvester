@@ -15,7 +15,7 @@ $issue = $decoded[0];
 //query for news
 foreach ($decoded[1] as $value) {
 
-	$sql .= "UPDATE $issue SET viewed = 1 WHERE id = $value;";
+	$sql .= "UPDATE news SET viewed = 1 WHERE id = $value;";
 
 }
 

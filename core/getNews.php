@@ -13,7 +13,13 @@ if(isset($_GET['issue']) && isset($_GET['startDate'])) {
 	$newDATE = new DateTime($startDate);
 	$mysqldate = $newDATE->format('Y-m-d H:i:s');
 
-	$sql = "SELECT * FROM $issue WHERE date >= '$mysqldate';";
+	if($issue == 'economy' || $issue == 'politics') {
+		$sql = "SELECT * FROM news WHERE category = '$issue' AND date >= '$mysqldate';";
+	} else {
+		$sql = "SELECT * FROM news WHERE category != 'economy' AND category != 'politics' AND date >= '$mysqldate';";
+	}
+
+	
 	
 	//preform sql
 	$result = $connection->query($sql);
