@@ -71,7 +71,7 @@ function keyboardShortcut(event) {
 		}
 		
 		//click on menu item
-		$('.menuExportKey' + number).click();
+		$('.menuExportKey' + number).children('a')[0].click();
 		
 	}
 	
