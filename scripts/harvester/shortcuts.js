@@ -64,14 +64,10 @@ function keyboardShortcut(event) {
 	if (event.ctrlKey) {
 
 		//get pressed number
-		if (event.keyCode < 96) {
+		if (event.keyCode >= 49 && event.keyCode <= 51) {
 			number = event.keyCode - 48;
-		} else {
-			number = event.keyCode - 96;
+			$('.menuExportKey' + number).children('a')[0].click();
 		}
-		
-		//click on menu item
-		$('.menuExportKey' + number).children('a')[0].click();
 		
 	}
 	
