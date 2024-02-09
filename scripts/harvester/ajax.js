@@ -2,7 +2,7 @@ function loadNews() {
 
 	//generate startDate
 	if (dateObj.weekends) {
-		//startDate = dateObj.lastFriday + '1500';
+		//startDate = dateObj.lastFriday + '1600';
 		//startDate = '202302121600';
 
 		startDate = new Date();
@@ -12,7 +12,7 @@ function loadNews() {
 		let todayDayOfWeek = today.getDay();
 
 		startDate.setDate(todayDayNumber + (6 - todayDayOfWeek - 1) - (todayDayOfWeek == 6 ? 0 : 7));
-		startDate.setHours(0, 0);
+		startDate.setHours(16, 0);
 
 	} else {
 
@@ -21,12 +21,12 @@ function loadNews() {
 		todayDayNumber = today.getDate();
 
 		startDate.setDate(todayDayNumber - 1);
-		startDate.setHours(0, 0);
+		startDate.setHours(16, 0);
 
 	}
 
 	var timestamp = '@' + Math.round(startDate.getTime()/1000);
-	
+
 	$.ajax({
 		url: '/core/getNews.php',
 		method: 'get',

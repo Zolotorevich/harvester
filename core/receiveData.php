@@ -11,34 +11,17 @@ $content = trim(file_get_contents("php://input"));
 //Decode the incoming RAW post data from JSON.
 $decoded = json_decode($content, true);
 
-// Init
-$sql = '';
-$crawlerName = $decoded[0]["carwler"];
-
-//get crawler issue and alias
-$result = $connection->query("SELECT issue, alias, lastDate FROM crawlers WHERE name LIKE '$crawlerName';");
-
-//collect result
-$crawlerSpecs = $result->fetch_all(MYSQLI_ASSOC);
+//INPUT JSON: [crawler.name, [newsArray]]
+$crawlerName = mysqli_real_escape_string($connection, $decoded[0]["carwler"]);
 
 //query for news
 foreach ($decoded[1] as $key => $value) {
 
-	$newsDate = mysqli_real_escape_string($connection, $value["date"]);
-	$newsTitle = mysqli_real_escape_string($connection, $value["title"]);
 	$newsLink = mysqli_real_escape_string($connection, $value["link"]);
+	$newsTitle = mysqli_real_escape_string($connection, $value["title"]);
 	$newsPreview = mysqli_real_escape_string($connection, $value["preview"]);
 
-	$sql .= "INSERT INTO ".$crawlerSpecs[0]['issue']." (date, title, link, preview, crawler) VALUES ('$newsDate', '$newsTitle', '$newsLink','$newsPreview','".$crawlerSpecs[0]['alias']."') ON DUPLICATE KEY UPDATE id=id;";
-
-	//update crawler last news
-	if ($key === array_key_first($decoded[1])) {
-		//check if news newer that last in crawlers table
-		if ($newsDate >= $crawlerSpecs[0]['lastDate']) {
-			//update last news
-			$sql .= "UPDATE crawlers SET lastDate = '$newsDate', lastTitle = '$newsTitle', lastLink = '$newsLink' WHERE name = '".$crawlerName."';";
-		}
-    }
+	$sql .= "INSERT INTO news (category, title, url, preview) VALUES ('$crawlerName', '$newsTitle', '$newsLink','$newsPreview') ON DUPLICATE KEY UPDATE category='$crawlerName';";
 
 }
 
