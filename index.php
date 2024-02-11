@@ -6,6 +6,7 @@
 	<meta name="referrer" content="unsafe-url">
     <link rel="stylesheet" href="/style/main.css" />
 	<script src="/scripts/jquery-3.6.3.min.js"></script>
+	<script src="/scripts/harvester/company.js"></script>
 	<script src="/scripts/harvester/main.js"></script>
 	<script src="/scripts/harvester/dateFunctions.js"></script>
 	<script src="/scripts/harvester/support.js"></script>

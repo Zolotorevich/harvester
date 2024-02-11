@@ -1,5 +1,10 @@
-let serevrUrl = 'https://harvester.local';
-// let serevrUrl = 'https://flintroot.ru';
+//NOTE: Add crawler to manifest, but 'crawlersList' must be the last import
+let serverURL = 'https://flintroot.ru';
+let reloadTime_min = 10 * 60 * 1000;
+let devServer = true;
+let doNotSend = true;
+
+
 var currentCrawler;
 
 $(document).ready(function(){
@@ -31,12 +36,22 @@ function harvester_sendData(newsArray) {
 
 	var finalArray = [{carwler:crawlersList[currentCrawler].name}, newsArray];
 
+	//check for dev mode
+	if (doNotSend) {
+		console.log(finalArray);
+		return false;
+	}
+
+	if (devServer) {
+		serverURL = 'https://harvester.local';
+	}
+
 	$.ajax({
 		beforeSend: function(){
 			logEvent('SENDING DATA');
 			console.log(finalArray);
-		  },
-		url: serevrUrl + '/core/receiveData.php',
+		},
+		url: serverURL + '/core/receiveData.php',
 		method: 'POST',
 		contentType: 'application/json',
 		dataType: 'json',
@@ -53,11 +68,11 @@ function harvester_sendData(newsArray) {
 				crawlerFinish(newsArray.length, 'fail');
 			}
 
-			//TODO wait and reload page
-
+			//Wait and reload page
+			setTimeout(() => {window.location.reload();}, reloadTime_min);
+			
 		}
 	});
-
 }
 
 

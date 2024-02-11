@@ -103,8 +103,24 @@ function displayNews() {
 			html += '<div class="sourceIcon"><img src="/style/sourceIcons/' + crawler[0] + '.png"></div>';
 
 			html += '<div class="newsTime">' + fullDateToTime_new(newsData[i].date) + '</div>';
+
+			title = '';
 			
-			html += '<div class="newsTitle"><span>' + newsData[i].title + '</span>';
+			//check if it's corporate news
+			if (newsData[i].category != 'politics' && newsData[i].category != 'economy') {
+				companyInfo = companyData.filter(item => item.uniq_name == newsData[i].category);
+
+				if(companyInfo.length != 1) {
+					title += companyInfo[0]['name'] + ': ';
+				} else {
+					title += 'NotFound: ';
+				}
+				
+			}
+
+			title += newsData[i].title;
+
+			html += '<div class="newsTitle"><span>' + title + '</span>';
 
 			//add preview if any
 			if (newsData[i].preview != '') {
