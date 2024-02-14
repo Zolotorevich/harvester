@@ -1,6 +1,6 @@
 //NOTE: Add crawler to manifest, but 'crawlersList' must be the last import
 let serverURL = 'https://flintroot.ru';
-let reloadTime_min = 10 * 60 * 1000;
+// let reloadTime_min = 10 * 60 * 1000;
 let devServer = true;
 let doNotSend = true;
 
@@ -25,7 +25,7 @@ $(document).ready(function(){
 
 });
 
-function harvester_sendData(newsArray) {
+function harvester_sendData(newsArray, reloadTime_min) {
 
 	//check if any new news
 	if (newsArray.length == 0) {

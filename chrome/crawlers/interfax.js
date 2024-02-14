@@ -1,7 +1,8 @@
 function crawlInterfax() {
 	logEvent('CRAWLING Interfax');
 
-	newsArray = [];
+	let newsArray = [];
+	let reloadTime_min = 10 * 60 * 1000;
 
 	//create results array
 	$('.timeline h3').each(function() {
@@ -27,6 +28,6 @@ function crawlInterfax() {
 	});
 
 	//send data
-	harvester_sendData(newsArray);
+	harvester_sendData(newsArray, reloadTime_min);
 
 }
